@@ -42,6 +42,7 @@ Route::namespace('App\\Http\\Controllers\\API')
     ->group(function () {
 
     Route::put('dashboard/execute-comments', 'DashboardController@executeComments');
+        Route::get('niches/list', [\App\Http\Controllers\API\NicheController::class, 'list']);
 
     Route::put('comments/{comment}/niches', 'CommentNicheController@sync');
     Route::put('facebook-accounts/{facebookAccount}/niches', 'FacebookAccountNicheController@sync');
