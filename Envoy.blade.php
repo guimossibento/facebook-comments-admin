@@ -3,7 +3,8 @@
 @task('deploy_facebook_comments_admin')
 cd /var/www/html/facebook-comments-admin
 sudo  git pull origin main
-sudo  composer update
+sudo  composer install
+yarn
 php artisan migrate
 npm run prod
 @endtask
