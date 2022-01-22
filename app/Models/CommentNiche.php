@@ -13,12 +13,7 @@ class CommentNiche extends Model
 
     protected $fillable = ["niche_id", "comment_id"];
 
-    public const allowedScopes = [
+    public const allowedScopes = [];
 
-    ];
-
-    public const allowedIncludes = [
-
-    ];
-
+    public const allowedIncludes = [];
 }

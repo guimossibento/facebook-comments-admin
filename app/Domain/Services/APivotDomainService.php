@@ -16,5 +16,4 @@ abstract class APivotDomainService
         $relation = strtolower($this->relation);
         return $model->{$relation}()->sync($data);
     }
-
 }

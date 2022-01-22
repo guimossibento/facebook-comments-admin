@@ -11,8 +11,7 @@ class Comment extends Model
 
     protected $fillable = ["text"];
 
-    public const allowedScopes = [
-    ];
+    public const allowedScopes = [];
 
     public const allowedIncludes = [
         'niches'
@@ -20,13 +19,11 @@ class Comment extends Model
 
     public function niches()
     {
-        return $this->
-        belongsToMany(
-            Niche::class,
-            'comment_niche',
-            'comment_id',
-            'niche_id'
-        );
+        return $this->belongsToMany(
+                Niche::class,
+                'comment_niche',
+                'comment_id',
+                'niche_id'
+            );
     }
-
 }

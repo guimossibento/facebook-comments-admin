@@ -11,13 +11,9 @@ class Role extends Model
         'name', 'description'
     ];
 
-    public const allowedScopes = [
+    public const allowedScopes = [];
 
-    ];
-
-    public const allowedIncludes = [
-
-    ];
+    public const allowedIncludes = [];
 
     protected $table = 'roles';
 

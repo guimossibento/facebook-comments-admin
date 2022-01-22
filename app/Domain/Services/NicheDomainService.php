@@ -9,6 +9,6 @@ class NicheDomainService extends AModelDomainService
 {
     public function __construct(Niche $niche, NicheRepository $repository)
     {
-       parent::__construct($niche, $repository);
+        parent::__construct($niche, $repository);
     }
 }

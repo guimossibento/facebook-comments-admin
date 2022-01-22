@@ -9,10 +9,15 @@ class FacebookAccount extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["name","login","password","gender"];
-
-    public const allowedScopes = [
+    protected $fillable = [
+        "name",
+        "login",
+        "password",
+        "gender",
+        "secret_2fa"
     ];
+
+    public const allowedScopes = [];
 
     public const allowedIncludes = [
         'niches'
@@ -20,13 +25,11 @@ class FacebookAccount extends Model
 
     public function niches()
     {
-        return $this->
-        belongsToMany(
+        return $this->belongsToMany(
             Niche::class,
             'facebook_account_niche',
             'facebook_account_id',
             'niche_id'
         );
     }
-
 }

@@ -28,6 +28,8 @@ class FacebookAccountController extends AController
      */
     public function store(Request $request)
     {
+        $request['secret_2fa'] = trim($request['secret_2fa']);
+
         $data = $this->service->store($request->all());
 
         return $this->sendResponse($data, '');
@@ -54,6 +56,8 @@ class FacebookAccountController extends AController
      */
     public function update(Request $request, FacebookAccount $facebookAccount)
     {
+        $request['secret_2fa'] = trim($request['secret_2fa']);
+
         $data = $this->service->update($facebookAccount, $request->all());
 
         return $this->sendResponse($data, '');
@@ -68,4 +72,3 @@ class FacebookAccountController extends AController
         return $this->service->delete($facebookAccount);
     }
 }
-

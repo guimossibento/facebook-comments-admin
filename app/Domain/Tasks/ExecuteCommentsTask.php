@@ -17,10 +17,11 @@ class ExecuteCommentsTask
             "password" => $facebookAccount->password,
             "post_url" => $url,
             "comment" => $comment,
+            "secret_2fa" => $facebookAccount->secret_2fa,
         ];
 
         Http::withHeaders(['Authorization' => env('JWT_TOKEN_PUPPETEER')])
-        ->acceptJson()
+            ->acceptJson()
             ->contentType('application/json')
             ->put("http://localhost:8081/api/comment", $data)
             ->throw(function ($response, $e) {

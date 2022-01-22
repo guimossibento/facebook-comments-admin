@@ -12,13 +12,9 @@ use App\Models\Role;
 class User extends Authenticatable // implements MustVerifyEmail
 {
     use HasFactory, Notifiable, HasApiTokens;
-    public const allowedScopes = [
+    public const allowedScopes = [];
 
-    ];
-
-    public const allowedIncludes = [
-
-    ];
+    public const allowedIncludes = [];
     /**
      * The attributes that are mass assignable.
      *
@@ -46,7 +42,7 @@ class User extends Authenticatable // implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-     /**
+    /**
      * Get the profile photo URL attribute.
      *
      * @return string

@@ -9,6 +9,6 @@ class FacebookAccountDomainService extends AModelDomainService
 {
     public function __construct(FacebookAccount $model, FacebookAccountRepository $repository)
     {
-       parent::__construct($model, $repository);
+        parent::__construct($model, $repository);
     }
 }

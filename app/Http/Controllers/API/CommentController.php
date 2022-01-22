@@ -68,4 +68,3 @@ class CommentController extends AController
         return $this->service->delete($comment);
     }
 }
-

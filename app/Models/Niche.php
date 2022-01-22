@@ -51,7 +51,8 @@ class Niche extends Model
             Comment::class,
             'comment_niche',
             'niche_id',
-            'comment_id');
+            'comment_id'
+        );
     }
 
     public function facebookAccounts()
@@ -60,8 +61,7 @@ class Niche extends Model
             FacebookAccount::class,
             'facebook_account_niche',
             'niche_id',
-            'facebook_account_id');
+            'facebook_account_id'
+        );
     }
-
-
 }

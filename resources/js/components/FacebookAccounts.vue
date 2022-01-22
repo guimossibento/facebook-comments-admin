@@ -158,6 +158,17 @@
                   <has-error :form="form" field="password"></has-error>
                 </div>
                 <div class="form-group">
+                  <label>Secret 2fa</label>
+                  <input
+                    v-model="form.secret_2fa"
+                    type="text"
+                    name="secret_2fa"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('secret_2fa') }"
+                  />
+                  <has-error :form="form" field="secret_2fa"></has-error>
+                </div>
+                <div class="form-group">
                   <label>Gênero</label>
                   <select
                     name="gender"
@@ -231,6 +242,7 @@ export default {
         login: "",
         password: "",
         gender: "",
+        secret_2fa: "",
       }),
       source: [],
       destination: [],
@@ -286,6 +298,7 @@ export default {
               this.form.login = response.data.data.login;
               this.form.password = response.data.data.password;
               this.form.gender = response.data.data.gender;
+              this.form.secret_2fa = response.data.data.secret_2fa;
 
               axios
                 .get(

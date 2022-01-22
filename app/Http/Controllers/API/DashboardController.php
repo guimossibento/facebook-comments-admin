@@ -11,14 +11,17 @@ class DashboardController
     {
 
         $facebookAccounts = Niche::with(
-            ['facebookAccounts' => function ($q) {
-                $q->where('facebook_accounts.gender', request()->get('gender'));
-            }])
+            [
+                'facebookAccounts' => function ($q) {
+                    $q->where('facebook_accounts.gender', request()->get('gender'));
+                }
+            ]
+        )
             ->find(request()->get('niche'))
             ?->facebookAccounts;
 
         if (blank($facebookAccounts)) {
-            return response(["message" => "Sem contas para execução."], 400);
+            return response(["message" => "Sem contas para execução."], 402);
         }
 
         $facebookAccounts = $facebookAccounts->take(request()->get('comment_amount'));
@@ -28,19 +31,35 @@ class DashboardController
             ?->comments->toArray();
 
         if (blank($comments)) {
-            return response(["message" => "Sem comentários para execução."], 400);
+            return response(["message" => "Sem comentários para execução."], 402);
         }
 
         $commentIndex = 0;
-        $facebookAccounts->map(function ($facebookAccount) use ($comments, &$commentIndex) {
+        $message = '';
+
+        $facebookAccounts->map(function ($facebookAccount) use ($comments, &$commentIndex, &$message) {
             if (!array_key_exists($commentIndex, $comments) ?? true) {
                 $commentIndex = 0;
+            }
+
+            if (blank($facebookAccount->secret_2fa)) {
+                $message = ["message" => "$facebookAccount->name sem secret 2fa."];
+                return;
+            }
+
+            if (blank($facebookAccount->password)) {
+                $message = ["message" => "$facebookAccount->name sem senha."];
+                return;
             }
 
             (new ExecuteCommentsTask())->onQueue()->execute($facebookAccount, request()->get('url'), $comments[$commentIndex]['text']);
 
             $commentIndex++;
         });
+
+        if (!blank($message)) {
+            return response($message, 402);
+        }
 
         return response()->json();
     }

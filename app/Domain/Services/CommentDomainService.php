@@ -9,6 +9,6 @@ class CommentDomainService extends AModelDomainService
 {
     public function __construct(Comment $model, CommentRepository $repository)
     {
-       parent::__construct($model, $repository);
+        parent::__construct($model, $repository);
     }
 }

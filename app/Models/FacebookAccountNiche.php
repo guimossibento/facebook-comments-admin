@@ -13,11 +13,7 @@ class FacebookAccountNiche extends Model
 
     protected $fillable = ["niche_id", "facebook_account_id"];
 
-    public const allowedScopes = [
+    public const allowedScopes = [];
 
-    ];
-
-    public const allowedIncludes = [
-
-    ];
+    public const allowedIncludes = [];
 }
