@@ -120,10 +120,18 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
+          if (response.status === 200) {
+            Toast.fire({
+              icon: "success",
+              title: "Aguarde, processando comentários!",
+            });
+          }
         })
         .catch((error) => {
-          console.log(error);
+          Toast.fire({
+            icon: "error",
+            title: error.response.data.message,
+          });
           this.$Progress.fail();
         });
       this.$Progress.finish();
