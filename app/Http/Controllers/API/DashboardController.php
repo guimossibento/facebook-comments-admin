@@ -21,7 +21,7 @@ class DashboardController
             ?->facebookAccounts;
 
         if (blank($facebookAccounts)) {
-            return response(["message" => "Sem contas para execução."], 402);
+            return response(["message" => "Sem contas para execução."], 400);
         }
 
         $facebookAccounts = $facebookAccounts->take(request()->get('comment_amount'));
@@ -31,7 +31,7 @@ class DashboardController
             ?->comments->toArray();
 
         if (blank($comments)) {
-            return response(["message" => "Sem comentários para execução."], 402);
+            return response(["message" => "Sem comentários para execução."], 400);
         }
 
         $commentIndex = 0;
@@ -58,7 +58,7 @@ class DashboardController
         });
 
         if (!blank($message)) {
-            return response($message, 402);
+            return response($message, 400);
         }
 
         return response()->json();
