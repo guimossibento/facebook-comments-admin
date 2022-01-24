@@ -35,7 +35,7 @@ class DashboardController
         }
 
         $commentIndex = 0;
-        $message = '';
+        $message['message'] = '';
 
         $facebookAccounts->map(function ($facebookAccount) use ($comments, &$commentIndex, &$message) {
             if (!array_key_exists($commentIndex, $comments) ?? true) {
@@ -43,12 +43,12 @@ class DashboardController
             }
 
             if (blank($facebookAccount->secret_2fa)) {
-                $message = ["message" => "$facebookAccount->name sem secret 2fa."];
+                $message["message"] .=  "$facebookAccount->name sem secret 2fa;";
                 return;
             }
 
             if (blank($facebookAccount->password)) {
-                $message = ["message" => "$facebookAccount->name sem senha."];
+                $message["message"] .=  "$facebookAccount->name sem senha;";
                 return;
             }
 
@@ -57,8 +57,8 @@ class DashboardController
             $commentIndex++;
         });
 
-        if (!blank($message)) {
-            return response($message, 400);
+        if ($message['message'] !== '') {
+            return response($message, 200);
         }
 
         return response()->json();
