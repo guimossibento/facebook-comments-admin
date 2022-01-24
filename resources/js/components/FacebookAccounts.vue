@@ -97,15 +97,11 @@
         aria-labelledby="addNew"
         aria-hidden="true"
       >
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" v-show="!editmode">
-                Criar Novo Comentário
-              </h5>
-              <h5 class="modal-title" v-show="editmode">
-                Atualizar Comentário
-              </h5>
+              <h5 class="modal-title" v-show="!editmode">Criar Novo Conta</h5>
+              <h5 class="modal-title" v-show="editmode">Atualizar Conta</h5>
               <button
                 type="button"
                 class="close"
@@ -124,38 +120,68 @@
               "
             >
               <div class="modal-body">
-                <div class="form-group">
-                  <label>Nome</label>
-                  <input
-                    v-model="form.name"
-                    type="text"
-                    name="name"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('name') }"
-                  />
-                  <has-error :form="form" field="name"></has-error>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Nome</label>
+                      <input
+                        v-model="form.name"
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('name') }"
+                      />
+                      <has-error :form="form" field="name"></has-error>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Login</label>
+                      <input
+                        v-model="form.login"
+                        type="text"
+                        name="login"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('login') }"
+                      />
+                      <has-error :form="form" field="login"></has-error>
+                    </div>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Login</label>
-                  <input
-                    v-model="form.login"
-                    type="text"
-                    name="login"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('login') }"
-                  />
-                  <has-error :form="form" field="login"></has-error>
-                </div>
-                <div class="form-group">
-                  <label>Senha</label>
-                  <input
-                    v-model="form.password"
-                    type="password"
-                    name="password"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('password') }"
-                  />
-                  <has-error :form="form" field="password"></has-error>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Senha</label>
+                      <input
+                        v-model="form.password"
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('password') }"
+                      />
+                      <has-error :form="form" field="password"></has-error>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Gênero</label>
+                      <select
+                        name="gender"
+                        v-model="form.gender"
+                        id="gender"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('gender') }"
+                      >
+                        <option :selected="form.gender === 'M'" value="M">
+                          Masculino
+                        </option>
+                        <option :selected="form.gender === 'F'" value="F">
+                          Feminino
+                        </option>
+                      </select>
+                      <has-error :form="form" field="gender"></has-error>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label>Secret 2fa</label>
@@ -168,33 +194,18 @@
                   />
                   <has-error :form="form" field="secret_2fa"></has-error>
                 </div>
-                <div class="form-group">
-                  <label>Gênero</label>
-                  <select
-                    name="gender"
-                    v-model="form.gender"
-                    id="gender"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('gender') }"
+                <div v-show="editmode" class="form-group text-center">
+                  <el-transfer
+                    filterable
+                    :filter-method="filterMethod"
+                    :titles="['Disponívels', 'Atribuidos']"
+                    :button-texts="['Remover', 'Atribuir']"
+                    filter-placeholder="Digite um nicho"
+                    v-model="destination"
+                    @change="onChangeList"
+                    :data="source"
                   >
-                    <option :selected="form.gender === 'M'" value="M">
-                      Masculino
-                    </option>
-                    <option :selected="form.gender === 'F'" value="F">
-                      Feminino
-                    </option>
-                  </select>
-                  <has-error :form="form" field="gender"></has-error>
-                </div>
-                <div v-show="editmode" class="form-group">
-                  <DualListBox
-                    :source="source"
-                    :destination="destination"
-                    :id="form.id"
-                    label="name"
-                    @onChangeList="onChangeList"
-                  >
-                  </DualListBox>
+                  </el-transfer>
                 </div>
               </div>
               <div class="modal-footer">
@@ -249,9 +260,14 @@ export default {
     };
   },
   methods: {
-    onChangeList: function ({ source, destination }) {
+    onChangeList: function (value, direction, movedKeys) {
       let niches = {};
-      niches.data = destination;
+      niches.data = [];
+
+      value.forEach((element) => {
+        niches.data.push({ id: element });
+      });
+
       axios
         .put(`api/facebook-accounts/${this.form.id}/niches`, niches)
         .then((response) => {})
@@ -261,8 +277,6 @@ export default {
             title: "Some error occured! Please try again",
           });
         });
-      this.source = source;
-      this.destination = destination;
     },
     getResults(page = 1) {
       this.$Progress.start();
@@ -284,6 +298,9 @@ export default {
     },
     createFacebookAccount() {
       if (this.$gate.isAdmin()) {
+        this.source = [];
+        this.destination = [];
+
         this.form
           .post("api/facebook-accounts")
           .then((response) => {
@@ -305,16 +322,24 @@ export default {
                   `api/facebook-accounts/${response.data.data.id}?include=niches`
                 )
                 .then(({ data }) => {
-                  this.destination = data.data["niches"];
+                  data = data.data["niches"].map(function (niche) {
+                    return niche.id;
+                  });
+                  for (let index = 0; index < data.length; index++) {
+                    this.destination.push(data[index]);
+                  }
                 });
 
-              axios
-                .get(
-                  `api/niches/list?filter[hasNotFacebookAccount]=${response.data.data.id}`
-                )
-                .then(({ data }) => {
-                  this.source = data;
+              axios.get(`api/niches/list`).then(({ data }) => {
+                data = data.map(function (niche) {
+                  return {
+                    key: niche.id,
+                    label: niche.name,
+                  };
                 });
+
+                this.source = data;
+              });
 
               this.editmode = true;
               this.$Progress.finish();
@@ -364,16 +389,24 @@ export default {
       axios
         .get(`api/facebook-accounts/${facebookAccount.id}?include=niches`)
         .then(({ data }) => {
-          this.destination = data.data["niches"];
+          data = data.data["niches"].map(function (niche) {
+            return niche.id;
+          });
+          for (let index = 0; index < data.length; index++) {
+            this.destination.push(data[index]);
+          }
         });
 
-      axios
-        .get(
-          `api/niches/list?filter[hasNotFacebookAccount]=${facebookAccount.id}`
-        )
-        .then(({ data }) => {
-          this.source = data;
+      axios.get(`api/niches/list`).then(({ data }) => {
+        data = data.map(function (niche) {
+          return {
+            key: niche.id,
+            label: niche.name,
+          };
         });
+
+        this.source = data;
+      });
 
       $("#addNew").modal("show");
       this.form.fill(facebookAccount);
@@ -406,6 +439,9 @@ export default {
             });
         }
       });
+    },
+    filterMethod(query, item) {
+      return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
     },
   },
   mounted() {

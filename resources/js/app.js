@@ -13,7 +13,7 @@ require('../../bower_components/select2/dist/js/select2.min.js')
 
 import moment from 'moment';
 
-import {AlertError, Form, HasError} from 'vform';
+import { AlertError, Form, HasError } from 'vform';
 import Gate from "./Gate";
 import Swal from 'sweetalert2';
 import VueProgressBar from 'vue-progressbar'
@@ -92,6 +92,12 @@ Vue.component(
     require('./components/NotFound.vue').default
 );
 
+
+import ElementUI from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/pt-br'
+
+Vue.use(ElementUI, { locale })
+
 // Filter Section
 
 Vue.filter('myDate', function (created) {
@@ -115,7 +121,7 @@ const app = new Vue({
 
 //Mascaras
 require('jquery-mask-plugin')
-$('.date').mask("99/99/9999", {placeholder: 'MM/DD/YYYY'});
+$('.date').mask("99/99/9999", { placeholder: 'MM/DD/YYYY' });
 $('.positiveNumber').mask('Z#', {
     translation: {
         'Z': {
@@ -123,11 +129,11 @@ $('.positiveNumber').mask('Z#', {
         }
     }
 });
-$('.money').mask("#################.##", {reverse: true});
+$('.money').mask("#################.##", { reverse: true });
 $('.stockCode').mask('SSSS00', {
     'translation': {
-        S: {pattern: /[A-Za-z]/},
-        0: {pattern: /[0-9]/}
+        S: { pattern: /[A-Za-z]/ },
+        0: { pattern: /[0-9]/ }
     }
     , onKeyPress: function (value, event) {
         event.currentTarget.value = value.toUpperCase();

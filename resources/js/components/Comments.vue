@@ -121,15 +121,18 @@
                   />
                   <has-error :form="form" field="text"></has-error>
                 </div>
-                <div v-show="editmode" class="form-group">
-                  <DualListBox
-                    :source="source"
-                    :destination="destination"
-                    :id="form.id"
-                    label="name"
-                    @onChangeList="onChangeList"
+                <div v-show="editmode" class="form-group text-center">
+                  <el-transfer
+                    filterable
+                    :filter-method="filterMethod"
+                    :titles="['Disponívels', 'Atribuidos']"
+                    :button-texts="['Remover', 'Atribuir']"
+                    filter-placeholder="Digite um nicho"
+                    v-model="destination"
+                    @change="onChangeList"
+                    :data="source"
                   >
-                  </DualListBox>
+                  </el-transfer>
                 </div>
               </div>
               <div class="modal-footer">
@@ -180,9 +183,14 @@ export default {
     };
   },
   methods: {
-    onChangeList: function ({ source, destination }) {
+    onChangeList: function (value, direction, movedKeys) {
       let niches = {};
-      niches.data = destination;
+      niches.data = [];
+
+      value.forEach((element) => {
+        niches.data.push({ id: element });
+      });
+
       axios
         .put(`api/comments/${this.form.id}/niches`, niches)
         .then((response) => {})
@@ -192,8 +200,6 @@ export default {
             title: "Some error occured! Please try again",
           });
         });
-      this.source = source;
-      this.destination = destination;
     },
     getResults(page = 1) {
       this.$Progress.start();
@@ -215,6 +221,8 @@ export default {
     },
     createComment() {
       if (this.$gate.isAdmin()) {
+        this.source = [];
+        this.destination = [];
         this.form
           .post("api/comments")
           .then((response) => {
@@ -230,16 +238,24 @@ export default {
               axios
                 .get(`api/comments/${response.data.data.id}?include=niches`)
                 .then(({ data }) => {
-                  this.destination = data.data["niches"];
+                  data = data.data["niches"].map(function (niche) {
+                    return niche.id;
+                  });
+                  for (let index = 0; index < data.length; index++) {
+                    this.destination.push(data[index]);
+                  }
                 });
 
-              axios
-                .get(
-                  `api/niches/list?filter[hasNotComment]=${response.data.data.id}`
-                )
-                .then(({ data }) => {
-                  this.source = data;
+              axios.get(`api/niches/list`).then(({ data }) => {
+                data = data.map(function (niche) {
+                  return {
+                    key: niche.id,
+                    label: niche.name,
+                  };
                 });
+
+                this.source = data;
+              });
 
               this.editmode = true;
               this.$Progress.finish();
@@ -289,14 +305,24 @@ export default {
       axios
         .get(`api/comments/${comment.id}?include=niches`)
         .then(({ data }) => {
-          this.destination = data.data["niches"];
+          data = data.data["niches"].map(function (niche) {
+            return niche.id;
+          });
+          for (let index = 0; index < data.length; index++) {
+            this.destination.push(data[index]);
+          }
         });
 
-      axios
-        .get(`api/niches/list?filter[hasNotComment]=${comment.id}`)
-        .then(({ data }) => {
-          this.source = data;
+      axios.get(`api/niches/list`).then(({ data }) => {
+        data = data.map(function (niche) {
+          return {
+            key: niche.id,
+            label: niche.name,
+          };
         });
+
+        this.source = data;
+      });
 
       $("#addNew").modal("show");
       this.form.fill(comment);
@@ -329,6 +355,9 @@ export default {
             });
         }
       });
+    },
+    filterMethod(query, item) {
+      return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
     },
   },
   mounted() {
