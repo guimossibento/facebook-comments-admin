@@ -20,7 +20,7 @@
               </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
+            <div class="card-body table-responsive">
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -52,11 +52,14 @@
               </table>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-              <pagination
-                :data="users"
-                @pagination-change-page="getResults"
-              ></pagination>
+            <div class="card-footer text-center">
+              <div class="float-right">
+                <pagination
+                  :data="users"
+                  :limit="-1"
+                  @pagination-change-page="getResults"
+                ></pagination>
+              </div>
             </div>
           </div>
           <!-- /.card -->

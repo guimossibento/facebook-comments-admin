@@ -20,7 +20,7 @@
               </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
+            <div class="card-body table-responsive">
               <div class="float-right">
                 <pagination
                   :data="comments"
@@ -58,14 +58,16 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer text-center">
-              <pagination
-                :data="comments"
-                :limit="-1"
-                @pagination-change-page="getResults"
-              >
-                <span slot="prev-nav">Anterior</span>
-                <span slot="next-nav">Próxima</span>
-              </pagination>
+              <div class="float-right">
+                <pagination
+                  :data="comments"
+                  :limit="-1"
+                  @pagination-change-page="getResults"
+                >
+                  <span slot="prev-nav">Anterior</span>
+                  <span slot="next-nav">Próxima</span>
+                </pagination>
+              </div>
             </div>
           </div>
           <!-- /.card -->
