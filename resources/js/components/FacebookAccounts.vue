@@ -72,7 +72,7 @@
             <div class="card-footer text-center">
               <pagination
                 :data="facebookAccounts"
-                :limit="1"
+                :limit="-1"
                 @pagination-change-page="getResults"
               >
                 <span slot="prev-nav">Anterior</span>
