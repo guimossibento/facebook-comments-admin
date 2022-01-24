@@ -6,5 +6,4 @@ sudo  git pull origin main
 sudo  composer install
 yarn
 php artisan migrate
-npm run prod
 @endtask
