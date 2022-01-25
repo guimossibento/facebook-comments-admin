@@ -39,6 +39,7 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Login</th>
+                    <th>Senha</th>
                     <th>Gênero</th>
                     <th>Ação</th>
                   </tr>
@@ -51,6 +52,7 @@
                     <td>{{ facebookAccount.id }}</td>
                     <td>{{ facebookAccount.name }}</td>
                     <td>{{ facebookAccount.login }}</td>
+                    <td>{{ facebookAccount.password }}</td>
                     <td>{{ facebookAccount.gender | gender }}</td>
                     <td>
                       <a href="#" @click="editModal(facebookAccount)">
@@ -156,7 +158,7 @@
                       <label>Senha</label>
                       <input
                         v-model="form.password"
-                        type="password"
+                        type="text"
                         name="password"
                         class="form-control"
                         :class="{ 'is-invalid': form.errors.has('password') }"
