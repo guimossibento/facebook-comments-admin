@@ -182,6 +182,9 @@
                         <option :selected="form.gender === 'F'" value="F">
                           Feminino
                         </option>
+                        <option :selected="form.gender === 'N'" value="N">
+                          Neutro
+                        </option>
                       </select>
                       <has-error :form="form" field="gender"></has-error>
                     </div>

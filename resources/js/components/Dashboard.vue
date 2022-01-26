@@ -34,6 +34,7 @@
                     >
                       <option value="M">Masculino</option>
                       <option value="F">Feminino</option>
+                      <option value="N">Neutro</option>
                     </select>
                   </div>
                 </div>
