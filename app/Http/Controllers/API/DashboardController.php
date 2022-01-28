@@ -13,7 +13,9 @@ class DashboardController
         $facebookAccounts = Niche::with(
             [
                 'facebookAccounts' => function ($q) {
-                    $q->where('facebook_accounts.gender', request()->get('gender'));
+                    if (request()->get('gender') !== 'A') {
+                        $q->where('facebook_accounts.gender', request()->get('gender'));
+                    }
                 }
             ]
         )
