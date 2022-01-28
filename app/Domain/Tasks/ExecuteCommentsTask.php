@@ -5,6 +5,7 @@ namespace App\Domain\Tasks;
 use App\Models\FacebookAccount;
 use Illuminate\Support\Facades\Http;
 use Spatie\QueueableAction\QueueableAction;
+use Spatie\RateLimitedMiddleware\RateLimited as RateLimited;
 
 class ExecuteCommentsTask
 {
@@ -28,5 +29,15 @@ class ExecuteCommentsTask
                 return $e;
             })
             ->body();
+    }
+
+    public function middleware()
+    {
+        $rateLimitedMiddleware = (new RateLimited())
+            ->allow(1)
+            ->everySeconds(60)
+            ->releaseAfterSeconds(60);;
+
+        return [$rateLimitedMiddleware];
     }
 }
