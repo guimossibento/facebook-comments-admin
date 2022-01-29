@@ -101,7 +101,7 @@ Vue.use(ElementUI, { locale })
 // Filter Section
 
 Vue.filter('myDate', function (created) {
-    return moment(created).format('MMMM Do YYYY');
+    return moment(created).format('DD/MM/YYYY H:mm:ss');
 });
 
 Vue.filter('gender', function (value) {

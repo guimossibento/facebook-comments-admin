@@ -9,7 +9,7 @@ process:
 never_cache_twig: true
 ---
 
-Select2 comes with AJAX support built in, using jQuery's AJAX methods. In this example, we can search for repositories using GitHub's API:
+Select2 comes with AJAX support built in, using jQuery's AJAX methods. In this example, we can search for repositories using GitHub's Api:
 
 <select class="js-example-data-ajax form-control"></select>
 
@@ -67,7 +67,7 @@ $('#mySelect2').select2({
 
 ## Transforming response data
 
-You can use the `ajax.processResults` option to transform the data returned by your API into the format expected by Select2:
+You can use the `ajax.processResults` option to transform the data returned by your Api into the format expected by Select2:
 
 ```
 $('#mySelect2').select2({
@@ -142,7 +142,7 @@ Select2 will expect a `pagination.more` value in the response.  The value of `mo
 }
 ```
 
-If your server-side code does not generate the `pagination.more` property in the response, you can use `processResults` to generate this value from other information that is available.  For example, suppose your API returns a `count_filtered` value that tells you how many total (unpaginated) results are available in the data set.  If you know that your paginated API returns 10 results at a time, you can use this along with the value of `count_filtered` to compute the value of `pagination.more`:
+If your server-side code does not generate the `pagination.more` property in the response, you can use `processResults` to generate this value from other information that is available.  For example, suppose your Api returns a `count_filtered` value that tells you how many total (unpaginated) results are available in the data set.  If you know that your paginated Api returns 10 results at a time, you can use this along with the value of `count_filtered` to compute the value of `pagination.more`:
 
 ```
 processResults: function (data, params) {
@@ -185,7 +185,7 @@ $('#mySelect2').select2({
 
 ## Alternative transport methods
 
-Select2 uses the transport method defined in `ajax.transport` to send requests to your API. By default this transport method is `jQuery.ajax`, but it can be easily overridden:
+Select2 uses the transport method defined in `ajax.transport` to send requests to your Api. By default this transport method is `jQuery.ajax`, but it can be easily overridden:
 
 ```
 $('#mySelect2').select2({

@@ -30,7 +30,7 @@ Route::get('home', function () {
     return redirect('/dashboard');
 });
 
-Route::get('niches/list', [\App\Http\Controllers\API\NicheController::class, 'list']);
+Route::get('niches/list', [\App\Http\Controllers\Api\NicheController::class, 'list']);
 
 Route::get('/{vue_capture?}', function () {
     return view('home');

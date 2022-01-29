@@ -6,5 +6,6 @@ export default [
     { path: '/comments', component: require('./components/Comments.vue').default },
     { path: '/niches', component: require('./components/Niches.vue').default },
     { path: '/facebook-accounts', component: require('./components/FacebookAccounts.vue').default },
+    { path: '/comment-logs', component: require('./components/CommentLog.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ];

@@ -60,7 +60,7 @@ Select2 will listen for the `change` event on the `<select>` element that it is 
 
 For Select2 controls that receive their data from an [AJAX source](/data-sources/ajax), using `.val()` will not work.  The options won't exist yet, because the AJAX request is not fired until the control is opened and/or the user begins searching.  This is further complicated by server-side filtering and pagination - there is no guarantee when a particular item will actually be loaded into the Select2 control!
 
-The best way to deal with this, therefore, is to simply add the preselected item as a new option.  For remotely sourced data, this will probably involve creating a new API endpoint in your server-side application that can retrieve individual items:
+The best way to deal with this, therefore, is to simply add the preselected item as a new option.  For remotely sourced data, this will probably involve creating a new Api endpoint in your server-side application that can retrieve individual items:
 
 ```
 // Set up the Select2 control

@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\CommentLog;
+
+class CommentLogRepository extends EntityRepository
+{
+
+    protected string $entityClassName = CommentLog::class;
+
+}

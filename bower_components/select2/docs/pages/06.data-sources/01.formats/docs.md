@@ -61,7 +61,7 @@ In this case, Option 2 will be pre-selected, and Option 3 will be [disabled](/op
 
 Select2 requires that the `id` property is used to uniquely identify the options that are displayed in the results list. If you use a property other than `id` (like `pk`) to uniquely identify an option, you need to map your old property to `id` before passing it to Select2.
 
-If you cannot do this on your server or you are in a situation where the API cannot be changed, you can do this in JavaScript before passing it to Select2:
+If you cannot do this on your server or you are in a situation where the Api cannot be changed, you can do this in JavaScript before passing it to Select2:
 
 ```
 var data = $.map(yourArrayData, function (obj) {

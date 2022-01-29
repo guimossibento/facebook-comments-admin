@@ -138,7 +138,7 @@
                     <div class="modal-body">
                         <p>
                             Here is your new personal access token. This is the only time it will be shown so don't lose it!
-                            You may now use this token to make API requests.
+                            You may now use this token to make Api requests.
                         </p>
 
                         <textarea class="form-control" rows="10">{{ accessToken }}</textarea>

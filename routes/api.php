@@ -6,12 +6,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| Api Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register API routes for your application. These
+| Here is where you can register Api routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| is assigned the "api" middleware group. Enjoy building your Api!
 |
 */
 
@@ -26,7 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
+Route::namespace('App\\Http\\Controllers\\Api\V1')->group(function () {
     Route::get('profile', 'ProfileController@profile');
     Route::put('profile', 'ProfileController@updateProfile');
     Route::post('change-password', 'ProfileController@changePassword');
@@ -37,12 +37,12 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
 });
 
 
-Route::namespace('App\\Http\\Controllers\\API')
+Route::namespace('App\\Http\\Controllers\\Api')
     ->middleware('auth:api')
     ->group(function () {
 
     Route::put('dashboard/execute-comments', 'DashboardController@executeComments');
-        Route::get('niches/list', [\App\Http\Controllers\API\NicheController::class, 'list']);
+    Route::get('niches/list', [\App\Http\Controllers\Api\NicheController::class, 'list']);
 
     Route::put('comments/{comment}/niches', 'CommentNicheController@sync');
     Route::put('facebook-accounts/{facebookAccount}/niches', 'FacebookAccountNicheController@sync');
@@ -52,5 +52,6 @@ Route::namespace('App\\Http\\Controllers\\API')
         'comments' => 'CommentController',
         'niches' => 'NicheController',
         'facebook-accounts' => 'FacebookAccountController',
+        'comment-logs' => 'CommentLogController',
     ]);
 });

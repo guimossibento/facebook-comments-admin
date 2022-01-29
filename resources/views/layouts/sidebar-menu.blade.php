@@ -9,6 +9,15 @@
         </router-link>
       </li>
 
+      <li class="nav-item">
+        <router-link to="/comment-logs" class="nav-link">
+          <i class="nav-icon far fa-hourglass blue"></i>
+          <p>
+            Log de Comentários
+          </p>
+        </router-link>
+      </li>
+
       @can('isAdmin')
         <li class="nav-item">
           <router-link to="/users" class="nav-link">
