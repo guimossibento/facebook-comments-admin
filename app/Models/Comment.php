@@ -7,23 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $fillable = ["text"];
+  protected $fillable = ["text"];
 
-    public const allowedScopes = [];
+  public const allowedScopes = [];
 
-    public const allowedIncludes = [
-        'niches'
-    ];
+  public const allowedIncludes = [
+    'niches'
+  ];
 
-    public function niches()
-    {
-        return $this->belongsToMany(
-                Niche::class,
-                'comment_niche',
-                'comment_id',
-                'niche_id'
-            );
-    }
+  public const defaultSort = '-created_at';
+
+  public function niches()
+  {
+    return $this->belongsToMany(
+      Niche::class,
+      'comment_niche',
+      'comment_id',
+      'niche_id'
+    );
+  }
 }

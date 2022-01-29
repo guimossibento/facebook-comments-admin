@@ -2,78 +2,79 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use App\Models\Role;
 
 class User extends Authenticatable // implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasApiTokens;
-    public const allowedScopes = [];
+  use HasFactory, Notifiable, HasApiTokens;
 
-    public const allowedIncludes = [];
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password', 'type'
-    ];
+  public const allowedScopes = [];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+  public const allowedIncludes = [];
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = [
+    'name', 'email', 'password', 'type'
+  ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+  public const defaultSort = 'name';
 
-    /**
-     * Get the profile photo URL attribute.
-     *
-     * @return string
-     */
-    public function getPhotoAttribute()
-    {
-        return 'https://www.gravatar.com/avatar/' . md5(strtolower($this->email)) . '.jpg?s=200&d=mm';
-    }
+  /**
+   * The attributes that should be hidden for arrays.
+   *
+   * @var array
+   */
+  protected $hidden = [
+    'password', 'remember_token',
+  ];
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
+  /**
+   * The attributes that should be cast to native types.
+   *
+   * @var array
+   */
+  protected $casts = [
+    'email_verified_at' => 'datetime',
+  ];
 
-    /**
-     * Assigning User role
-     *
-     * @param \App\Models\Role $role
-     */
-    public function assignRole(Role $role)
-    {
-        return $this->roles()->save($role);
-    }
+  /**
+   * Get the profile photo URL attribute.
+   *
+   * @return string
+   */
+  public function getPhotoAttribute()
+  {
+    return 'https://www.gravatar.com/avatar/' . md5(strtolower($this->email)) . '.jpg?s=200&d=mm';
+  }
 
-    public function isAdmin()
-    {
-        return $this->roles()->where('name', 'Admin')->exists();
-    }
+  public function roles()
+  {
+    return $this->belongsToMany(Role::class);
+  }
 
-    public function isUser()
-    {
-        return $this->roles()->where('name', 'User')->exists();
-    }
+  /**
+   * Assigning User role
+   *
+   * @param \App\Models\Role $role
+   */
+  public function assignRole(Role $role)
+  {
+    return $this->roles()->save($role);
+  }
+
+  public function isAdmin()
+  {
+    return $this->roles()->where('name', 'Admin')->exists();
+  }
+
+  public function isUser()
+  {
+    return $this->roles()->where('name', 'User')->exists();
+  }
 }

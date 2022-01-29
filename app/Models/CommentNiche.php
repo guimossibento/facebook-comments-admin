@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class CommentNiche extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    public $timestamps = false;
+  public $timestamps = false;
 
-    protected $fillable = ["niche_id", "comment_id"];
+  protected $fillable = ["niche_id", "comment_id"];
 
-    public const allowedScopes = [];
+  public const allowedScopes = [];
 
-    public const allowedIncludes = [];
+  public const defaultSort = '-created_at';
+
+  public const allowedIncludes = [];
 }

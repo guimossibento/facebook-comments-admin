@@ -7,6 +7,7 @@ use App\Models\CommentLog;
 class CommentLogRepository extends EntityRepository
 {
 
-    protected string $entityClassName = CommentLog::class;
+  protected string $entityClassName = CommentLog::class;
 
+  protected string $defaultSort = CommentLog::defaultSort;
 }

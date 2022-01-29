@@ -8,7 +8,7 @@ class CommentRepository extends EntityRepository
 {
 
     protected string $entityClassName = Comment::class;
-//    protected string $defaultSort = Comment::defaultSort;
+    protected string $defaultSort = Comment::defaultSort;
 //    protected array $allowedSorts = Comment::allowedSorts;
 //    protected array $allowedFields = Comment::allowedFields;
     protected array $allowedIncludes = Comment::allowedIncludes;

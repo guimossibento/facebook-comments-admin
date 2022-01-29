@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class FacebookAccountNiche extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    public $timestamps = false;
+  public $timestamps = false;
 
-    protected $fillable = ["niche_id", "facebook_account_id"];
+  protected $fillable = ["niche_id", "facebook_account_id"];
 
-    public const allowedScopes = [];
+  public const defaultSort = '-created_at';
 
-    public const allowedIncludes = [];
+  public const allowedScopes = [];
+
+  public const allowedIncludes = [];
 }

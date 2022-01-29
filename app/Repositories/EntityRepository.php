@@ -154,9 +154,9 @@ class EntityRepository
     //  ->allowedFields($this->allowedFields)
       ->allowedIncludes($this->allowedIncludes)
      // ->allowedAppends($this->allowedAppends)
-      ->allowedFilters($this->allowedFilters);
-     // ->allowedSorts($this->allowedSorts)
-     // ->defaultSort($this->defaultSort);
+      ->allowedFilters($this->allowedFilters)
+//      ->allowedSorts($this->allowedSorts)
+      ->defaultSort($this->defaultSort);
 
     return $queryBuilder;
   }
