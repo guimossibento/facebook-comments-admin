@@ -16,21 +16,21 @@
                   <div class="form-group col-md-6">
                     <label for="url">Link do post</label>
                     <input
-                      required
-                      v-model="form.url"
-                      type="url"
-                      class="form-control"
-                      id="url"
-                      placeholder=""
+                        required
+                        v-model="form.url"
+                        type="url"
+                        class="form-control"
+                        id="url"
+                        placeholder=""
                     />
                   </div>
                   <div class="form-group col-md-6">
                     <label for="gender">Gênero</label>
                     <select
-                      name="gender"
-                      v-model="form.gender"
-                      id="gender"
-                      class="form-control"
+                        name="gender"
+                        v-model="form.gender"
+                        id="gender"
+                        class="form-control"
                     >
                       <option value="M">Masculino</option>
                       <option value="F">Feminino</option>
@@ -41,30 +41,30 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="comment_amount"
-                      >Quantidade de comentários</label
+                    >Quantidade de comentários</label
                     >
                     <input
-                      required
-                      v-model="form.comment_amount"
-                      type="text"
-                      class="form-control positiveNumber"
-                      id="comment_amount"
-                      value="1"
+                        required
+                        v-model="form.comment_amount"
+                        type="text"
+                        class="form-control positiveNumber"
+                        id="comment_amount"
+                        value="1"
                     />
                   </div>
                   <div class="form-group col-md-6">
                     <label for="niches">Nicho</label>
                     <select
-                      required
-                      class="form-control"
-                      id="niches"
-                      v-model="form.niche"
+                        required
+                        class="form-control"
+                        id="niches"
+                        v-model="form.niche"
                     >
                       <option disabled>Selecione um nicho</option>
                       <option
-                        v-for="niche in niches"
-                        v-bind:key="niche.id"
-                        v-bind:value="niche.id"
+                          v-for="niche in niches"
+                          v-bind:key="niche.id"
+                          v-bind:value="niche.id"
                       >
                         {{ niche.name }}
                       </option>
@@ -103,38 +103,38 @@ export default {
     loadNiches() {
       this.$Progress.start();
       axios
-        .get("niches/list")
-        .then(({ data }) => (this.niches = data))
-        .catch((error) => {
-          console.log(error);
-        });
+          .get("niches/list")
+          .then(({data}) => (this.niches = data))
+          .catch((error) => {
+            console.log(error);
+          });
 
       this.$Progress.finish();
     },
     executeComment() {
       this.$Progress.start();
       axios
-        .put("api/dashboard/execute-comments", this.form, {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        })
-        .then((response) => {
-          if (response.status === 200) {
+          .put("api/dashboard/execute-comments", this.form, {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              Toast.fire({
+                icon: "success",
+                title: "Aguarde, processando comentários!",
+              });
+            }
+          })
+          .catch((error) => {
             Toast.fire({
-              icon: "success",
-              title: "Aguarde, processando comentários!",
+              icon: "error",
+              title: error.response.data.message,
             });
-          }
-        })
-        .catch((error) => {
-          Toast.fire({
-            icon: "error",
-            title: error.response.data.message,
+            this.$Progress.fail();
           });
-          this.$Progress.fail();
-        });
       this.$Progress.finish();
     },
   },

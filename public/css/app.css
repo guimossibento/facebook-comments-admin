@@ -70610,6 +70610,10 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.el-carousel__container {
+  height: 600px !important;
+}
+
 .blue {
   color: #3490dc;
 }

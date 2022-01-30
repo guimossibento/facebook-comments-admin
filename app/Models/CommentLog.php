@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class CommentLog extends Model
 {
   use HasFactory;
-
-  protected $fillable = [
+  
+	protected $casts = [
+		'debug_json' => 'json',
+	];
+	
+	protected $fillable = [
     "facebook_account_login",
     "post_url",
     "comment",
     "status",
+    "debug_json",
   ];
 
   public const defaultSort = '-created_at';

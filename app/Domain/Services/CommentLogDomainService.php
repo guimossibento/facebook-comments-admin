@@ -41,4 +41,9 @@ class CommentLogDomainService
   {
     return $this->repository->findAll();
   }
+
+  public function deleteAll()
+  {
+    return $this->repository->deleteAll();
+  }
 }

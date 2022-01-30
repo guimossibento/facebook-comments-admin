@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Domain\Services\CommentLogDomainService;
+use App\Events\CommentLogEvent;
+use App\Models\Comment;
 use App\Models\CommentLog;
 use Illuminate\Http\Request;
 
@@ -29,7 +31,9 @@ class CommentLogController extends AController
   public function store(Request $request)
   {
     $data = $this->service->store($request->all());
-
+	
+	CommentLogEvent::dispatch($data);
+	
     return $this->sendResponse($data, '');
   }
 
@@ -56,6 +60,14 @@ class CommentLogController extends AController
   public function list()
   {
     return $this->service->list();
+  }
+  /**
+   * @param Comment $comment
+   * @return bool|null
+   */
+  public function destroyAll()
+  {
+    return $this->service->deleteAll();
   }
 }
 

@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    if(Auth::guest()){
-        return view('auth/login');
-    }
+  if (Auth::guest()) {
+    return view('auth/login');
+  }
 
-    return redirect('/dashboard');
+  return redirect('/dashboard');
 });
 
 Auth::routes(['verify' => true]);
@@ -27,11 +27,15 @@ Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('home', function () {
-    return redirect('/dashboard');
+  return redirect('/dashboard');
 });
 
 Route::get('niches/list', [\App\Http\Controllers\Api\NicheController::class, 'list']);
 
+
+\BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter::webSocket('/broadcast/comment-log/app/{appKey}',
+\App\Http\Controllers\CommentLogSocketHandler::class);
+
 Route::get('/{vue_capture?}', function () {
-    return view('home');
+  return view('home');
 })->where('vue_capture', '[\/\w\.-]*')->middleware('auth');

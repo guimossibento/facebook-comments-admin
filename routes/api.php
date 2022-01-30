@@ -16,42 +16,51 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('version', function () {
-    return response()->json(['version' => config('app.version')]);
+	return response()->json(['version' => config('app.version')]);
 });
 
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    Log::debug('User:' . serialize($request->user()));
-    return $request->user();
+	Log::debug('User:' . serialize($request->user()));
+	return $request->user();
 });
 
 
 Route::namespace('App\\Http\\Controllers\\Api\V1')->group(function () {
-    Route::get('profile', 'ProfileController@profile');
-    Route::put('profile', 'ProfileController@updateProfile');
-    Route::post('change-password', 'ProfileController@changePassword');
-
-    Route::apiResources([
-        'user' => 'UserController',
-    ]);
+	Route::get('profile', 'ProfileController@profile');
+	Route::put('profile', 'ProfileController@updateProfile');
+	Route::post('change-password', 'ProfileController@changePassword');
+	
+	Route::apiResources([
+		'user' => 'UserController',
+	]);
 });
 
 
 Route::namespace('App\\Http\\Controllers\\Api')
-    ->middleware('auth:api')
-    ->group(function () {
+	->middleware('auth:api')
+	->group(function () {
+		
+		Route::put('dashboard/execute-comments', 'DashboardController@executeComments');
+		Route::get('niches/list', [\App\Http\Controllers\Api\NicheController::class, 'list']);
+		
+		Route::put('comments/{comment}/niches', 'CommentNicheController@sync');
+		Route::put('facebook-accounts/{facebookAccount}/niches', 'FacebookAccountNicheController@sync');
+		
+		Route::get('comment-logs', [\App\Http\Controllers\Api\CommentLogController::class, 'index']);
+		Route::post('comment-logs', [\App\Http\Controllers\Api\CommentLogController::class, 'store']);
+		Route::get('comment-logs/{commentLog}', [\App\Http\Controllers\Api\CommentLogController::class, 'show']);
+		Route::delete('comment-logs/delete/all', [\App\Http\Controllers\Api\CommentLogController::class, 'destroyAll']);
+		Route::delete('comment-logs/{commentLog}', [\App\Http\Controllers\Api\CommentLogController::class, 'destroy']);
+		
+		Route::apiResources([
+			'comments' => 'CommentController',
+			'niches' => 'NicheController',
+			'facebook-accounts' => 'FacebookAccountController',
+		]);
+	});
 
-    Route::put('dashboard/execute-comments', 'DashboardController@executeComments');
-    Route::get('niches/list', [\App\Http\Controllers\Api\NicheController::class, 'list']);
-
-    Route::put('comments/{comment}/niches', 'CommentNicheController@sync');
-    Route::put('facebook-accounts/{facebookAccount}/niches', 'FacebookAccountNicheController@sync');
-
-
-    Route::apiResources([
-        'comments' => 'CommentController',
-        'niches' => 'NicheController',
-        'facebook-accounts' => 'FacebookAccountController',
-        'comment-logs' => 'CommentLogController',
-    ]);
-});
+Route::namespace('App\\Http\\Controllers\\Api')
+	->middleware('api')
+	->group(function () {
+		Route::post('comment-logs', [\App\Http\Controllers\Api\CommentLogController::class, 'store']);
+	});
