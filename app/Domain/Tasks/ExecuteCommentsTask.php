@@ -36,7 +36,7 @@ class ExecuteCommentsTask
         $rateLimitedMiddleware = (new RateLimited())
             ->allow(1)
             ->everySeconds(90)
-            ->releaseAfterSeconds(90);;
+            ->releaseAfterSeconds(60);;
 
         return [$rateLimitedMiddleware];
     }

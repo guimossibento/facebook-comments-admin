@@ -14,7 +14,8 @@ class FacebookAccount extends Model
     "login",
     "password",
     "gender",
-    "secret_2fa"
+    "secret_2fa",
+    "active"
   ];
 
   public const allowedScopes = [];

@@ -32,8 +32,6 @@ class CommentLogController extends AController
   {
     $data = $this->service->store($request->all());
 	
-	CommentLogEvent::dispatch($data);
-	
     return $this->sendResponse($data, '');
   }
 

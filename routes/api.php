@@ -45,6 +45,8 @@ Route::namespace('App\\Http\\Controllers\\Api')
 		
 		Route::put('comments/{comment}/niches', 'CommentNicheController@sync');
 		Route::put('facebook-accounts/{facebookAccount}/niches', 'FacebookAccountNicheController@sync');
+		Route::put('niches/{niche}/facebook-accounts', 'NicheFacebookAccountController@sync');
+		Route::put('niches/{niche}/comments', 'NicheCommentController@sync');
 		
 		Route::get('comment-logs', [\App\Http\Controllers\Api\CommentLogController::class, 'index']);
 		Route::post('comment-logs', [\App\Http\Controllers\Api\CommentLogController::class, 'store']);

@@ -38,6 +38,32 @@
 
       @can('isAdmin')
         <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa fa-layer-group nav-icon blue"></i>
+            <p>
+              Vículos
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" style="display: none;">
+            <li class="nav-item">
+              <router-link to="/niches-comments" class="nav-link">
+                <i class="fa fa-layer-group nav-icon blue"></i>
+                <p>Nichos x Comentários</p>
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/niches-facebook-accounts" class="nav-link">
+                <i class="fa fa-layer-group nav-icon blue"></i>
+                <p>Nichos x Contas</p>
+              </router-link>
+            </li>
+          </ul>
+        </li>
+      @endcan
+
+      @can('isAdmin')
+        <li class="nav-item">
           <router-link to="/facebook-accounts" class="nav-link">
             <i class="fab fa-facebook-square nav-icon blue"></i>
             <p>Contas do Facebook</p>

@@ -26,7 +26,7 @@ class AlterCommentLogsTableAddDebugJsonColumn extends Migration
     public function down()
     {
 		Schema::table('comment_logs', function (Blueprint $table) {
-	    $table->dropIfExists('debug_json');
+	    $table->dropColumn('debug_json');
     });
     }
 }

@@ -71,4 +71,9 @@ class FacebookAccountController extends AController
     {
         return $this->service->delete($facebookAccount);
     }
+	
+	public function list()
+	{
+		return $this->service->list();
+	}
 }

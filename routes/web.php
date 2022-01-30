@@ -31,6 +31,8 @@ Route::get('home', function () {
 });
 
 Route::get('niches/list', [\App\Http\Controllers\Api\NicheController::class, 'list']);
+Route::get('facebook-accounts/list', [\App\Http\Controllers\Api\FacebookAccountController::class, 'list']);
+Route::get('comments/list', [\App\Http\Controllers\Api\CommentController::class, 'list']);
 
 
 \BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter::webSocket('/broadcast/comment-log/app/{appKey}',

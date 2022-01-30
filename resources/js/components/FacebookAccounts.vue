@@ -198,19 +198,19 @@
                   />
                   <has-error :form="form" field="secret_2fa"></has-error>
                 </div>
-                <div v-show="editmode" class="form-group text-center">
-                  <el-transfer
-                    filterable
-                    :filter-method="filterMethod"
-                    :titles="['Disponívels', 'Atribuidos']"
-                    :button-texts="['Remover', 'Atribuir']"
-                    filter-placeholder="Digite um nicho"
-                    v-model="destination"
-                    @change="onChangeList"
-                    :data="source"
-                  >
-                  </el-transfer>
-                </div>
+<!--                <div v-show="editmode" class="form-group text-center">-->
+<!--                  <el-transfer-->
+<!--                    filterable-->
+<!--                    :filter-method="filterMethod"-->
+<!--                    :titles="['Disponívels', 'Atribuidos']"-->
+<!--                    :button-texts="['Remover', 'Atribuir']"-->
+<!--                    filter-placeholder="Digite um nicho"-->
+<!--                    v-model="destination"-->
+<!--                    @change="onChangeList"-->
+<!--                    :data="source"-->
+<!--                  >-->
+<!--                  </el-transfer>-->
+<!--                </div>-->
               </div>
               <div class="modal-footer">
                 <button
@@ -264,24 +264,24 @@ export default {
     };
   },
   methods: {
-    onChangeList: function (value, direction, movedKeys) {
-      let niches = {};
-      niches.data = [];
-
-      value.forEach((element) => {
-        niches.data.push({ id: element });
-      });
-
-      axios
-        .put(`api/facebook-accounts/${this.form.id}/niches`, niches)
-        .then((response) => {})
-        .catch((error) => {
-          Toast.fire({
-            icon: "error",
-            title: "Some error occured! Please try again",
-          });
-        });
-    },
+    // onChangeList: function (value, direction, movedKeys) {
+    //   let niches = {};
+    //   niches.data = [];
+    //
+    //   value.forEach((element) => {
+    //     niches.data.push({ id: element });
+    //   });
+    //
+    //   axios
+    //     .put(`api/facebook-accounts/${this.form.id}/niches`, niches)
+    //     .then((response) => {})
+    //     .catch((error) => {
+    //       Toast.fire({
+    //         icon: "error",
+    //         title: "Some error occured! Please try again",
+    //       });
+    //     });
+    // },
     getResults(page = 1) {
       this.$Progress.start();
 
@@ -321,29 +321,29 @@ export default {
               this.form.gender = response.data.data.gender;
               this.form.secret_2fa = response.data.data.secret_2fa;
 
-              axios
-                .get(
-                  `api/facebook-accounts/${response.data.data.id}?include=niches`
-                )
-                .then(({ data }) => {
-                  data = data.data["niches"].map(function (niche) {
-                    return niche.id;
-                  });
-                  for (let index = 0; index < data.length; index++) {
-                    this.destination.push(data[index]);
-                  }
-                });
+              // axios
+              //   .get(
+              //     `api/facebook-accounts/${response.data.data.id}?include=niches`
+              //   )
+              //   .then(({ data }) => {
+              //     data = data.data["niches"].map(function (niche) {
+              //       return niche.id;
+              //     });
+              //     for (let index = 0; index < data.length; index++) {
+              //       this.destination.push(data[index]);
+              //     }
+              //   });
 
-              axios.get(`api/niches/list`).then(({ data }) => {
-                data = data.map(function (niche) {
-                  return {
-                    key: niche.id,
-                    label: niche.name,
-                  };
-                });
-
-                this.source = data;
-              });
+              // axios.get(`api/niches/list`).then(({ data }) => {
+              //   data = data.map(function (niche) {
+              //     return {
+              //       key: niche.id,
+              //       label: niche.name,
+              //     };
+              //   });
+              //
+              //   this.source = data;
+              // });
 
               this.editmode = true;
               this.$Progress.finish();
@@ -390,27 +390,27 @@ export default {
     editModal(facebookAccount) {
       this.editmode = true;
       this.form.reset();
-      axios
-        .get(`api/facebook-accounts/${facebookAccount.id}?include=niches`)
-        .then(({ data }) => {
-          data = data.data["niches"].map(function (niche) {
-            return niche.id;
-          });
-          for (let index = 0; index < data.length; index++) {
-            this.destination.push(data[index]);
-          }
-        });
+      // axios
+      //   .get(`api/facebook-accounts/${facebookAccount.id}?include=niches`)
+      //   .then(({ data }) => {
+      //     data = data.data["niches"].map(function (niche) {
+      //       return niche.id;
+      //     });
+      //     for (let index = 0; index < data.length; index++) {
+      //       this.destination.push(data[index]);
+      //     }
+      //   });
 
-      axios.get(`api/niches/list`).then(({ data }) => {
-        data = data.map(function (niche) {
-          return {
-            key: niche.id,
-            label: niche.name,
-          };
-        });
-
-        this.source = data;
-      });
+      // axios.get(`api/niches/list`).then(({ data }) => {
+      //   data = data.map(function (niche) {
+      //     return {
+      //       key: niche.id,
+      //       label: niche.name,
+      //     };
+      //   });
+      //
+      //   this.source = data;
+      // });
 
       $("#addNew").modal("show");
       this.form.fill(facebookAccount);

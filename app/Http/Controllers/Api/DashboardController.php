@@ -15,6 +15,7 @@ class DashboardController
                 'facebookAccounts' => function ($q) {
                     if (request()->get('gender') !== 'A') {
                         $q->where('facebook_accounts.gender', request()->get('gender'));
+                        $q->where('facebook_accounts.active', true);
                     }
                 }
             ]
