@@ -196,11 +196,11 @@
                     <div class="form-group">
                       <label>Secret 2fa</label>
                       <input
-                          v-model="form.active"
+                          v-model="form.secret_2fa"
                           type="text"
-                          name="active"
+                          name="secret_2fa"
                           class="form-control"
-                          :class="{ 'is-invalid': form.errors.has('active') }"
+                          :class="{ 'is-invalid': form.errors.has('secret_2fa') }"
                       />
                       <has-error :form="form" field="secret_2fa"></has-error>
                     </div>
