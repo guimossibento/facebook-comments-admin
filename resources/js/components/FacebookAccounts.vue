@@ -217,10 +217,10 @@
                           class="form-control"
                           :class="{ 'is-invalid': form.errors.has('active') }"
                       >
-                        <option :selected="form.active === 'true'" value="true">
+                        <option :selected="form.active == '1'" value="true">
                           Ativa
                         </option>
-                        <option :selected="form.active === 'false'" value="false">
+                        <option :selected="form.active == '0'" value="false">
                           Desativada
                         </option>
                       </select>
@@ -414,7 +414,6 @@ export default {
     editModal(facebookAccount) {
       this.editmode = true;
       this.form.reset();
-      console.log(facebookAccount)
       // axios
       //   .get(`api/facebook-accounts/${facebookAccount.id}?include=niches`)
       //   .then(({ data }) => {
