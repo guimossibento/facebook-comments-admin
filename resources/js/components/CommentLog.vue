@@ -224,14 +224,14 @@ export default {
       broadcaster: 'pusher',
       key: 'websocketkey',
       wsPath: '/broadcast/comment-log',
-      wsHost: 'localhost:6001',
+      wsHost: 'localhost',
+      wsPort: 6001,
       forceTLS: false,
       disableStats: true,
     });
 
     window.Echo.channel('comment-log')
         .listen('CommentLogEvent', (e) => {
-          console.log(e);
           this.commnetLogs.data.unshift(e.commentLog);
         });
 
