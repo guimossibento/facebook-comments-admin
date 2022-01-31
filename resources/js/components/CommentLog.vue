@@ -231,6 +231,7 @@ export default {
 
     window.Echo.channel('comment-log')
         .listen('CommentLogEvent', (e) => {
+          console.log(e);
           this.commnetLogs.data.unshift(e.commentLog);
         });
 
