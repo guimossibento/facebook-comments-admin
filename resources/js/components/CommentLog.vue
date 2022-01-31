@@ -224,8 +224,7 @@ export default {
       broadcaster: 'pusher',
       key: 'websocketkey',
       wsPath: '/broadcast/comment-log',
-      wsHost: 'localhost',
-      wsPort: 6001,
+      wsHost: 'localhost:6001',
       forceTLS: false,
       disableStats: true,
     });
