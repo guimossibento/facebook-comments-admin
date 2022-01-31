@@ -8,8 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class FacebookAccount extends Model
 {
   use HasFactory;
-
-  protected $fillable = [
+  
+	protected $casts = [
+		'active' => 'boolean',
+	];
+	
+	protected $fillable = [
     "name",
     "login",
     "password",
