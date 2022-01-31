@@ -414,6 +414,7 @@ export default {
     editModal(facebookAccount) {
       this.editmode = true;
       this.form.reset();
+      console.log(facebookAccount);
       // axios
       //   .get(`api/facebook-accounts/${facebookAccount.id}?include=niches`)
       //   .then(({ data }) => {
