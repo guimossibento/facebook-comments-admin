@@ -30,14 +30,18 @@ class CommentLogDomainService
 		
 		CommentLogEvent::dispatch($data);
 		
-		if(strtolower($data?->status) === 'erro'){
+		if (strtolower($data?->status) === 'erro' || strtolower($data?->status) === 'login erro') {
 			FacebookAccount::query()
 				->where('login', $data->facebook_account_login)
 				->update(["active" => false]);
 		}
 		
+		FacebookAccount::query()
+			->where('login', $data->facebook_account_login)
+			->update(["active" => true]);
+		
 		return $data;
-  }
+	}
 	
 	public function show(int $id)
 	{

@@ -10,7 +10,7 @@ class FacebookAccountRepository extends EntityRepository
     protected string $entityClassName = FacebookAccount::class;
     protected string $defaultSort = FacebookAccount::defaultSort;
 //    protected array $allowedSorts = FacebookAccount::allowedSorts;
-//    protected array $allowedFields = FacebookAccount::allowedFields;
+    protected array $allowedFields = FacebookAccount::allowedFields;
     protected array $allowedIncludes = FacebookAccount::allowedIncludes;
 //    protected array $allowedAppends = FacebookAccount::allowedAppends;
     protected array $allowedScopes = FacebookAccount::allowedScopes;

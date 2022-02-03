@@ -39,12 +39,14 @@ Route::namespace('App\\Http\\Controllers\\Api\V1')->group(function () {
 Route::namespace('App\\Http\\Controllers\\Api')
 	->middleware('auth:api')
 	->group(function () {
+		Route::post('facebook-accounts/test-login', 'FacebookAccountController@testLogin');
 		
 		Route::put('dashboard/execute-comments', 'DashboardController@executeComments');
 		Route::get('niches/list', [\App\Http\Controllers\Api\NicheController::class, 'list']);
 		
 		Route::put('comments/{comment}/niches', 'CommentNicheController@sync');
 		Route::put('facebook-accounts/{facebookAccount}/niches', 'FacebookAccountNicheController@sync');
+		
 		Route::put('niches/{niche}/facebook-accounts', 'NicheFacebookAccountController@sync');
 		Route::put('niches/{niche}/comments', 'NicheCommentController@sync');
 		

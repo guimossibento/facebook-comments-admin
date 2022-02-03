@@ -22,6 +22,15 @@ class FacebookAccount extends Model
     "active"
   ];
 
+	public const allowedFields = [
+    "name",
+    "login",
+    "password",
+    "gender",
+    "secret_2fa",
+    "active"
+  ];
+
   public const allowedScopes = [];
 
   public const allowedIncludes = [

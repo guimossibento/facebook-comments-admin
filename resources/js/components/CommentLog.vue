@@ -115,7 +115,7 @@
               <template>
                 <el-carousel
                     indicator-position="outside"
-                             :key="screenshots[0]">
+                    :key="screenshots[0]">
                   <el-carousel-item align="center" v-for="screenshot in screenshots" :key="screenshot">
                     <img :src="screenshot" style="max-width: 100%; object-fit: contain;">
                   </el-carousel-item>
@@ -224,10 +224,11 @@ export default {
       broadcaster: 'pusher',
       key: 'websocketkey',
       wsPath: '/broadcast/comment-log',
-      wsHost: 'localhost',
+      wsHost: window.location.hostname,
       wsPort: 6001,
-      forceTLS: false,
-      disableStats: true,
+      wssPort: 6001,
+      forceTls: true,
+      disableStats: true
     });
 
     window.Echo.channel('comment-log')
