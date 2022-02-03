@@ -31,6 +31,7 @@ class FacebookAccountController extends AController
 	public function store(Request $request)
 	{
 		$request['secret_2fa'] = trim($request['secret_2fa']);
+		$request['active'] = ($request['active']) ? 1 : 0;
 		
 		$data = $this->service->store($request->all());
 		
@@ -59,6 +60,7 @@ class FacebookAccountController extends AController
 	public function update(Request $request, FacebookAccount $facebookAccount)
 	{
 		$request['secret_2fa'] = trim($request['secret_2fa']);
+		$request['active'] = ($request['active']) ? 1 : 0;
 		
 		$data = $this->service->update($facebookAccount, $request->all());
 		
