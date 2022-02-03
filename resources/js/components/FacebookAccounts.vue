@@ -372,22 +372,7 @@ export default {
       this.form
           .post("api/facebook-accounts/test-login")
           .then((response) => {
-            if (response.data.success) {
-              Toast.fire({
-                icon: "success",
-                title: response.data.message,
-              });
 
-              $("#addNew").modal("hide");
-              this.$Progress.finish();
-            } else {
-              Toast.fire({
-                icon: "error",
-                title: "Some error occured! Please try again",
-              });
-
-              this.$Progress.failed();
-            }
           })
           .catch((error) => {
             Toast.fire({
