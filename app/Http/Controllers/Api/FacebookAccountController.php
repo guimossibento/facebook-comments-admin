@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Domain\Services\FacebookAccountDomainService;
+use App\Domain\Tasks\TestLoginTask;
 use App\Models\FacebookAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -89,13 +90,7 @@ class FacebookAccountController extends AController
 			"test_login" => true
 		];
 		
-		return Http::withHeaders(['Authorization' => env('JWT_TOKEN_PUPPETEER')])
-			->acceptJson()
-			->contentType('application/json')
-			->put("http://localhost:8081/api/comment", $data)
-			->throw(function ($response, $e) {
-				return $e;
-			})
-			->body();
+		(new TestLoginTask)->onQueue('comment-task')->execute($data);
+	
 	}
 }
