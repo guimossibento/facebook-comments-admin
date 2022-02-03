@@ -6,4 +6,5 @@ sudo  git pull origin main
 sudo  composer install
 yarn
 php artisan migrate
+chmod 777 -R storage/
 @endtask
