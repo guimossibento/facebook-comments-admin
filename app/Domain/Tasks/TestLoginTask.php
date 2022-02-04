@@ -27,7 +27,7 @@ class TestLoginTask
     {
         $rateLimitedMiddleware = (new RateLimited())
             ->allow(1)
-            ->everySeconds(90)
+            ->everySeconds(60)
             ->releaseAfterSeconds(10);
 
         return [$rateLimitedMiddleware];
