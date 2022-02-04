@@ -227,8 +227,9 @@ export default {
       wsHost: window.location.hostname,
       wsPort: 6001,
       wssPort: 6001,
-      forceTls: true,
-      disableStats: true
+      disableStats: true,
+      forceTLS: true,
+      enabledTransports: ['ws', 'wss']
     });
 
     window.Echo.channel('comment-log')
