@@ -219,10 +219,10 @@
                           class="form-control"
                           :class="{ 'is-invalid': form.errors.has('active') }"
                       >
-                        <option :selected="(form.active)" value="true">
+                        <option :selected="(form.active)" value="1">
                           Ativa
                         </option>
-                        <option :selected="(!form.active)" value="false">
+                        <option :selected="(!form.active)" value="0">
                           Desativada
                         </option>
                       </select>
