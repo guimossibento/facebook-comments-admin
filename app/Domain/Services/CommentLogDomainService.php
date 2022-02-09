@@ -34,6 +34,8 @@ class CommentLogDomainService
 			FacebookAccount::query()
 				->where('login', $data->facebook_account_login)
 				->update(["active" => false]);
+			
+			return $data;
 		}
 		
 		FacebookAccount::query()
