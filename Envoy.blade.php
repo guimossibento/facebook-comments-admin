@@ -2,6 +2,8 @@
 
 @task('deploy_facebook_comments_admin')
 cd /var/www/html/facebook-comments-admin
+git checkout .
+git reset --hard
 sudo  git pull origin main
 sudo  composer install
 yarn

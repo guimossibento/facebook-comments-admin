@@ -42,6 +42,7 @@
                   <th>Senha</th>
                   <th>Gênero</th>
                   <th>Status</th>
+                  <th>Nichos</th>
                   <th>Ação</th>
                 </tr>
                 </thead>
@@ -55,7 +56,14 @@
                   <td>{{ facebookAccount.login }}</td>
                   <td>{{ facebookAccount.password }}</td>
                   <td>{{ facebookAccount.gender | gender }}</td>
-                  <td :style='(facebookAccount.active == true) ? "color: #1b860a" : "color: #f51c1c"'>{{ facebookAccount.active | status }}</td>
+                  <td :style='(facebookAccount.active == true) ? "color: #1b860a" : "color: #f51c1c"'>
+                    {{ facebookAccount.active | status }}
+                  </td>
+                  <td>
+                    <span v-for=" niche in facebookAccount.niches" :key="niche.id">
+                      {{ niche.name }};
+                    </span>
+                  </td>
                   <td>
                     <a href="#" @click="editModal(facebookAccount)">
                       <i class="fa fa-edit blue"></i>
@@ -297,7 +305,7 @@ export default {
       this.$Progress.start();
       if (this.$gate.isAdmin()) {
         axios
-            .get("api/facebook-accounts")
+            .get("api/facebook-accounts?include=niches")
             .then(({data}) => (this.facebookAccounts = data.data));
       }
       this.$Progress.finish();
