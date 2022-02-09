@@ -108,6 +108,10 @@ Vue.filter('gender', function (value) {
     return (value === 'F') ? "Feminino" : "Masculino";
 });
 
+Vue.filter('status', function (value) {
+    return (value == true) ? 'Ativo' : 'Desativado';
+});
+
 Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i class="fas fa-times red"></i>'));
 
 // end Filter

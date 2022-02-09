@@ -41,6 +41,7 @@
                   <th>Login</th>
                   <th>Senha</th>
                   <th>Gênero</th>
+                  <th>Status</th>
                   <th>Ação</th>
                 </tr>
                 </thead>
@@ -54,6 +55,7 @@
                   <td>{{ facebookAccount.login }}</td>
                   <td>{{ facebookAccount.password }}</td>
                   <td>{{ facebookAccount.gender | gender }}</td>
+                  <td :style='(facebookAccount.active == true) ? "color: #1b860a" : "color: #f51c1c"'>{{ facebookAccount.active | status }}</td>
                   <td>
                     <a href="#" @click="editModal(facebookAccount)">
                       <i class="fa fa-edit blue"></i>
@@ -208,7 +210,7 @@
 
                   <div class="col">
                     <div class="form-group">
-                      <label>Ativa</label>
+                      <label>Status</label>
                       <select
                           name="gender"
                           v-model="form.active"
@@ -217,10 +219,10 @@
                           class="form-control"
                           :class="{ 'is-invalid': form.errors.has('active') }"
                       >
-                        <option :selected="(form.active)" value="1">
+                        <option :selected="(form.active)" value="true">
                           Ativa
                         </option>
-                        <option :selected="(!form.active)" value="0">
+                        <option :selected="(!form.active)" value="false">
                           Desativada
                         </option>
                       </select>

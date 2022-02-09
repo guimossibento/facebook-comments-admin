@@ -34,7 +34,8 @@ abstract class AModelDomainService
 
     public function update(Model $model, array $data)
     {
-        return $model->update($data);
+        $model->update($data);
+		return $model->refresh();
     }
 
     public function delete(Model $model)
