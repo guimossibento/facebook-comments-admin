@@ -81,6 +81,82 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header text-center">
+              <div class="row-cols-2">
+                <h3 class="card-title float-left">Log de Solicitações</h3>
+              </div>
+              <div class="row-cols-7">
+                <button
+                    type="button"
+                    class="btn btn-sm btn-danger float-right"
+                    @click="deleteAll()"
+                >
+                  <i class="fa fa-trash"></i>
+                  Limpar Histórico
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+              <div class="float-right">
+                <pagination
+                    :data="commentRequestLogs"
+                    :limit="-1"
+                    @pagination-change-page="getResults"
+                >
+                  <span slot="prev-nav">Anterior</span>
+                  <span slot="next-nav">Próxima</span>
+                </pagination>
+              </div>
+              <table class="table table-hover p-0">
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Data</th>
+                  <th>Nicho</th>
+                  <th>Post Url</th>
+                  <th>Sucesso</th>
+                  <th>Erro</th>
+                  <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="commentRequest in commentRequestLogs.data" :key="commentRequest.id">
+                  <td>{{ commentRequest.id }}</td>
+                  <td>{{ commentRequest.created_at | myDate }}</td>
+                  <td>{{ commentRequest.niche.name }}</td>
+                  <td>{{ commentRequest.post_url }}</td>
+                  <td>
+                    {{ getTotalCommentLogsSuccess(commentRequest.comment_logs) }}
+                  </td>
+                  <td>
+                    {{ getTotalCommentLogsError(commentRequest.comment_logs) }}
+                  </td>
+                  <td>{{ commentRequest.total_request }}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer text-center">
+              <div class="float-right">
+                <pagination
+                    :data="commentRequestLogs"
+                    :limit="-1"
+                    @pagination-change-page="getResults"
+                >
+                  <span slot="prev-nav">Anterior</span>
+                  <span slot="next-nav">Próxima</span>
+                </pagination>
+              </div>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
     </div>
     <!--/. container-fluid -->
   </section>
@@ -91,6 +167,7 @@ export default {
   data() {
     return {
       niches: {},
+      commentRequestLogs: {},
       form: {
         url: "",
         comment_amount: "",
@@ -105,6 +182,27 @@ export default {
       axios
           .get("niches/list")
           .then(({data}) => (this.niches = data))
+          .catch((error) => {
+            console.log(error);
+          });
+
+      this.$Progress.finish();
+    },
+    getResults(page = 1) {
+      this.$Progress.start();
+      axios
+          .get("api/comment-request-logs?include=commentLogs,niche&page=" + page)
+          .then(({data}) => (this.commentRequestLogs = data.data));
+
+      this.$Progress.finish();
+    },
+    loadCommentRequestLogs() {
+      this.$Progress.start();
+      axios
+          .get("api/comment-request-logs?include=commentLogs,niche")
+          .then(({data}) => {
+            this.commentRequestLogs = data.data
+          })
           .catch((error) => {
             console.log(error);
           });
@@ -137,6 +235,42 @@ export default {
           });
       this.$Progress.finish();
     },
+    getTotalCommentLogsSuccess(commentLogs) {
+      return commentLogs.filter(
+          function (commentLog) {
+            return commentLog.status === 'Sucesso'
+          }
+      ).length
+    },
+    getTotalCommentLogsError(commentLogs) {
+      return commentLogs.filter(
+          function (commentLog) {
+            return commentLog.status === 'Erro'
+          }
+      ).length
+    },
+    deleteAll() {
+      Swal.fire({
+        title: "Tem certeza?",
+        text: "Não será possível reverter!",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sim, apague tudo!",
+      }).then((result) => {
+        // Send request to the server
+        if (result.value) {
+          axios.delete("api/comment-request-logs/delete/all")
+              .then(() => {
+                Swal.fire("Apagado!", "Histórico apagado.", "success");
+                this.loadCommentRequestLogs();
+              })
+              .catch((data) => {
+                Swal.fire("Failed!", data.message, "warning");
+              });
+        }
+      });
+    },
   },
   mounted() {
     console.log("Dashboard mounted.");
@@ -144,6 +278,7 @@ export default {
   created() {
     this.$Progress.start();
     this.loadNiches();
+    this.loadCommentRequestLogs();
     $(document).ready(function () {
       $(".select2").select2();
     });

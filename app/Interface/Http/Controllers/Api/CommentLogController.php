@@ -8,6 +8,7 @@ use App\Interface\Http\Controllers\AController;
 use  App\Domain\Models\Comment;
 use  App\Domain\Models\CommentLog;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CommentLogController extends AController
 {
@@ -16,7 +17,7 @@ class CommentLogController extends AController
   }
 
   /**
-   * @return \Illuminate\Http\Response
+   * @return Response
    */
   public function index()
   {
@@ -26,8 +27,8 @@ class CommentLogController extends AController
   /**
    * Store a newly created resource in storage.
    *
-   * @param \Illuminate\Http\Request $request
-   * @return \Illuminate\Http\Response
+   * @param Request $request
+   * @return Response
    */
   public function store(Request $request)
   {
@@ -39,8 +40,8 @@ class CommentLogController extends AController
   /**
    * Display the specified resource.
    *
-   * @param \ App\Domain\Models\CommentLog $commentLog
-   * @return \Illuminate\Http\Response
+   * @param CommentLog $commentLog
+   * @return Response
    */
   public function show(CommentLog $commentLog)
   {
@@ -51,20 +52,20 @@ class CommentLogController extends AController
    * @param CommentLog $commentLog
    * @return bool|null
    */
-  public function destroy(CommentLog $commentLog)
+  public function destroy(CommentLog $commentLog): ?bool
   {
     return $this->service->delete($commentLog);
   }
 
-  public function list()
+  public function list(): \Illuminate\Database\Eloquent\Collection|array
   {
     return $this->service->list();
   }
-  /**
-   * @param Comment $comment
-   * @return bool|null
-   */
-  public function destroyAll()
+	
+	/**
+	 * @return bool|null
+	 */
+  public function destroyAll(): ?bool
   {
     return $this->service->deleteAll();
   }

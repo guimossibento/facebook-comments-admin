@@ -54,6 +54,12 @@ Route::namespace('App\\Interface\\Http\\Controllers\\Api')
 		Route::delete('comment-logs/delete/all', [\App\Interface\Http\Controllers\Api\CommentLogController::class, 'destroyAll']);
 		Route::delete('comment-logs/{commentLog}', [\App\Interface\Http\Controllers\Api\CommentLogController::class, 'destroy']);
 		
+		Route::get('comment-request-logs', [\App\Interface\Http\Controllers\Api\CommentRequestLogController::class, 'index']);
+		Route::post('comment-request-logs', [\App\Interface\Http\Controllers\Api\CommentRequestLogController::class, 'store']);
+		Route::get('comment-request-logs/{commentRequestLog}', [\App\Interface\Http\Controllers\Api\CommentRequestLogController::class, 'show']);
+		Route::delete('comment-request-logs/delete/all', [\App\Interface\Http\Controllers\Api\CommentRequestLogController::class, 'destroyAll']);
+		Route::delete('comment-request-logs/{commentRequestLog}', [\App\Interface\Http\Controllers\Api\CommentRequestLogController::class, 'destroy']);
+		
 		Route::apiResources([
 			'comments' => 'CommentController',
 			'niches' => 'NicheController',
