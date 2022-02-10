@@ -30,13 +30,13 @@ Route::get('home', function () {
   return redirect('/dashboard');
 });
 
-Route::get('niches/list', [\App\Http\Controllers\Api\NicheController::class, 'list']);
-Route::get('facebook-accounts/list', [\App\Http\Controllers\Api\FacebookAccountController::class, 'list']);
-Route::get('comments/list', [\App\Http\Controllers\Api\CommentController::class, 'list']);
+Route::get('niches/list', [\App\Interface\Http\Controllers\Api\NicheController::class, 'list']);
+Route::get('facebook-accounts/list', [\App\Interface\Http\Controllers\Api\FacebookAccountController::class, 'list']);
+Route::get('comments/list', [\App\Interface\Http\Controllers\Api\CommentController::class, 'list']);
 
 
 \BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter::webSocket('/broadcast/comment-log/app/{appKey}',
-\App\Http\Controllers\CommentLogSocketHandler::class);
+\App\Interface\Http\Controllers\CommentLogSocketHandler::class);
 
 Route::get('/{vue_capture?}', function () {
   return view('home');

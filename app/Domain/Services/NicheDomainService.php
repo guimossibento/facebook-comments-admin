@@ -2,8 +2,8 @@
 
 namespace App\Domain\Services;
 
-use App\Models\Niche;
-use App\Repositories\NicheRepository;
+use  App\Domain\Models\Niche;
+use App\Infrastructure\Repositories\NicheRepository;
 
 class NicheDomainService extends AModelDomainService
 {

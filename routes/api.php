@@ -25,7 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::namespace('App\\Http\\Controllers\\Api\V1')->group(function () {
+Route::namespace('App\\Interface\\Http\\Controllers\\Auth')->group(function () {
 	Route::get('profile', 'ProfileController@profile');
 	Route::put('profile', 'ProfileController@updateProfile');
 	Route::post('change-password', 'ProfileController@changePassword');
@@ -36,25 +36,23 @@ Route::namespace('App\\Http\\Controllers\\Api\V1')->group(function () {
 });
 
 
-Route::namespace('App\\Http\\Controllers\\Api')
+Route::namespace('App\\Interface\\Http\\Controllers\\Api')
 	->middleware('auth:api')
 	->group(function () {
 		Route::post('facebook-accounts/test-login', 'FacebookAccountController@testLogin');
 		
 		Route::put('dashboard/execute-comments', 'DashboardController@executeComments');
-		Route::get('niches/list', [\App\Http\Controllers\Api\NicheController::class, 'list']);
+		Route::get('niches/list', [\App\Interface\Http\Controllers\Api\NicheController::class, 'list']);
 		
-		Route::put('comments/{comment}/niches', 'CommentNicheController@sync');
 		Route::put('facebook-accounts/{facebookAccount}/niches', 'FacebookAccountNicheController@sync');
 		
 		Route::put('niches/{niche}/facebook-accounts', 'NicheFacebookAccountController@sync');
-		Route::put('niches/{niche}/comments', 'NicheCommentController@sync');
 		
-		Route::get('comment-logs', [\App\Http\Controllers\Api\CommentLogController::class, 'index']);
-		Route::post('comment-logs', [\App\Http\Controllers\Api\CommentLogController::class, 'store']);
-		Route::get('comment-logs/{commentLog}', [\App\Http\Controllers\Api\CommentLogController::class, 'show']);
-		Route::delete('comment-logs/delete/all', [\App\Http\Controllers\Api\CommentLogController::class, 'destroyAll']);
-		Route::delete('comment-logs/{commentLog}', [\App\Http\Controllers\Api\CommentLogController::class, 'destroy']);
+		Route::get('comment-logs', [\App\Interface\Http\Controllers\Api\CommentLogController::class, 'index']);
+		Route::post('comment-logs', [\App\Interface\Http\Controllers\Api\CommentLogController::class, 'store']);
+		Route::get('comment-logs/{commentLog}', [\App\Interface\Http\Controllers\Api\CommentLogController::class, 'show']);
+		Route::delete('comment-logs/delete/all', [\App\Interface\Http\Controllers\Api\CommentLogController::class, 'destroyAll']);
+		Route::delete('comment-logs/{commentLog}', [\App\Interface\Http\Controllers\Api\CommentLogController::class, 'destroy']);
 		
 		Route::apiResources([
 			'comments' => 'CommentController',
@@ -63,8 +61,9 @@ Route::namespace('App\\Http\\Controllers\\Api')
 		]);
 	});
 
-Route::namespace('App\\Http\\Controllers\\Api')
+
+Route::namespace('App\\Interface\\Http\\Controllers\\Api')
 	->middleware('api')
 	->group(function () {
-		Route::post('comment-logs', [\App\Http\Controllers\Api\CommentLogController::class, 'store']);
+		Route::post('comment-logs', [\App\Interface\Http\Controllers\Api\CommentLogController::class, 'store']);
 	});

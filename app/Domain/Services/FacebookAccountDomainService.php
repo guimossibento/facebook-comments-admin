@@ -2,8 +2,8 @@
 
 namespace App\Domain\Services;
 
-use App\Models\FacebookAccount;
-use App\Repositories\FacebookAccountRepository;
+use  App\Domain\Models\FacebookAccount;
+use App\Infrastructure\Repositories\FacebookAccountRepository;
 
 class FacebookAccountDomainService extends AModelDomainService
 {

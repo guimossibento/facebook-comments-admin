@@ -2,8 +2,8 @@
 
 namespace App\Domain\Services;
 
-use App\Models\Comment;
-use App\Repositories\CommentRepository;
+use  App\Domain\Models\Comment;
+use App\Infrastructure\Repositories\CommentRepository;
 
 class CommentDomainService extends AModelDomainService
 {

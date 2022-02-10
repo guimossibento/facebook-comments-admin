@@ -121,7 +121,7 @@
                   <has-error :form="form" field="email"></has-error>
                 </div>
 
-                <div class="form-group">
+                <div v-show="!editmode" class="form-group">
                   <label>Senha</label>
                   <input
                     v-model="form.password"

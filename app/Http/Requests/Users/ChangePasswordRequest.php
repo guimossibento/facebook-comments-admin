@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Users;
 
-use App\Rules\MatchOldPassword;
+use  App\Domain\Rules\MatchOldPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ChangePasswordRequest extends FormRequest

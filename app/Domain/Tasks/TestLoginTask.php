@@ -2,7 +2,7 @@
 
 namespace App\Domain\Tasks;
 
-use App\Models\FacebookAccount;
+use  App\Domain\Models\FacebookAccount;
 use Illuminate\Support\Facades\Http;
 use Spatie\QueueableAction\QueueableAction;
 use Spatie\RateLimitedMiddleware\RateLimited as RateLimited;

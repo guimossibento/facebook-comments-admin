@@ -2,7 +2,7 @@
 
 namespace App\Domain\Services;
 
-use App\Repositories\EntityRepository;
+use App\Infrastructure\Repositories\EntityRepository;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class AModelDomainService

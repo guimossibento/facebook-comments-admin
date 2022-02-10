@@ -2,10 +2,10 @@
 
 namespace App\Domain\Services;
 
-use App\Events\CommentLogEvent;
-use App\Models\CommentLog;
-use App\Models\FacebookAccount;
-use App\Repositories\CommentLogRepository;
+use App\Infrastructure\Events\CommentLogEvent;
+use  App\Domain\Models\CommentLog;
+use  App\Domain\Models\FacebookAccount;
+use App\Infrastructure\Repositories\CommentLogRepository;
 
 class CommentLogDomainService
 {

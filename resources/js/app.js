@@ -10,7 +10,6 @@ window.Vue = require('vue');
 
 require('../../bower_components/select2/dist/js/select2.min.js')
 
-
 import moment from 'moment';
 
 import { AlertError, Form, HasError } from 'vform';
