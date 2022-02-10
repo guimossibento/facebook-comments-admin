@@ -63,7 +63,7 @@ class DashboardController
 				return;
 			}
 			
-			(new ExecuteCommentsTask())->execute($facebookAccount, request()->get('url'), $comments[$commentIndex]['text'], $commentRequestLog->id);
+			(new ExecuteCommentsTask())->onQueue('comment-task')->execute($facebookAccount, request()->get('url'), $comments[$commentIndex]['text'], $commentRequestLog->id);
 			
 			$commentIndex++;
 		});
