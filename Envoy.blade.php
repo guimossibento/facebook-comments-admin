@@ -1,4 +1,4 @@
-@servers(['web' => 'root@165.227.249.129'])
+@servers(['web' => 'root@159.89.44.102'])
 
 @task('deploy_facebook_comments_admin')
 cd /var/www/html/facebook-comments-admin
