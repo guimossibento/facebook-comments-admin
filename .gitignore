@@ -12,3 +12,4 @@ yarn-error.log
 reports/
 .idea
 .vscode
+/storage/framework/*
