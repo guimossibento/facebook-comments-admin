@@ -31,7 +31,7 @@ class DashboardController
 		}
 		
 		$facebookAccounts = $facebookAccounts->filter(function ($facebookAccount) {
-			return !blank(CommentLog::query()
+			return blank(CommentLog::query()
 				->where('facebook_account_id', $facebookAccount->id)
 				->where('post_url', request()->get('url'))
 				->first());
