@@ -30,6 +30,13 @@ class DashboardController
 			return response(["message" => "Sem contas para execução."], 400);
 		}
 		
+		$facebookAccounts = $facebookAccounts->filter(function ($facebookAccount) {
+			return !blank(CommentLog::query()
+				->where('facebook_account_id', $facebookAccount->id)
+				->where('post_url', request()->get('url'))
+				->first());
+		});
+		
 		$facebookAccounts = $facebookAccounts->take(request()->get('comment_amount'));
 		
 		$comments = Niche::with('comments')
@@ -65,16 +72,6 @@ class DashboardController
 			}
 			
 			$post_url = request()->get('url');
-			
-			$already_commented = CommentLog::query()
-				->where('facebook_account_id', $facebookAccount->id)
-				->where('post_url', $post_url)
-				->first();
-			
-			if (!blank($already_commented)) {
-				$message["message"] .= "$facebookAccount->name já comentou;";
-				return;
-			}
 			
 			(new ExecuteCommentsTask())->onQueue('comment-task')->execute($facebookAccount, $post_url, $comments[$commentIndex]['text'], $commentRequestLog->id);
 			
