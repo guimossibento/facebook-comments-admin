@@ -36,7 +36,7 @@
                 <tr>
                   <th>ID</th>
                   <th>Data</th>
-                  <th>Login</th>
+                  <th>Nome</th>
                   <th>Post</th>
                   <th>Comentário</th>
                   <th>Status</th>
@@ -48,7 +48,7 @@
                 <tr v-for="commnetLog in commnetLogs.data" :key="commnetLog.id">
                   <td>{{ commnetLog.id }}</td>
                   <td>{{ commnetLog.created_at | myDate }}</td>
-                  <td>{{ commnetLog.facebook_account_login }}</td>
+                  <td>{{ commnetLog.facebook_account.name }}</td>
                   <td>{{ commnetLog.post_url }}</td>
                   <td>{{ commnetLog.comment }}</td>
                   <td>{{ commnetLog.status }}
@@ -150,7 +150,7 @@ export default {
       this.$Progress.start();
 
       axios
-          .get("api/comment-logs?page=" + page)
+          .get("api/comment-logs?include=facebookAccount&page=" + page)
           .then(({data}) => (this.commnetLogs = data.data));
       // console.log(this.commnetLogs);
       this.$Progress.finish();
@@ -158,9 +158,8 @@ export default {
     loadCommentLog() {
       this.$Progress.start();
       if (this.$gate.isAdmin()) {
-        axios.get("api/comment-logs").then(({data}) => (this.commnetLogs = data.data));
+        axios.get("api/comment-logs?include=facebookAccount").then(({data}) => (this.commnetLogs = data.data));
       }
-      // console.log(this.commnetLogs);
       this.$Progress.finish();
     },
     deleteCommentLog(id) {
@@ -234,6 +233,7 @@ export default {
 
     window.Echo.channel('comment-log')
         .listen('CommentLogEvent', (e) => {
+          console.log(e);
           this.commnetLogs.data.unshift(e.commentLog);
         });
 

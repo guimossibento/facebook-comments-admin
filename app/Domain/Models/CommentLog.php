@@ -13,8 +13,12 @@ class CommentLog extends Model
 		'debug_json' => 'json',
 	];
 	
+	public const allowedIncludes = [
+		'facebookAccount'
+	];
+	
 	protected $fillable = [
-		"facebook_account_login",
+		"facebook_account_id",
 		"post_url",
 		"comment",
 		"status",
@@ -23,4 +27,9 @@ class CommentLog extends Model
 	];
 	
 	public const defaultSort = '-created_at';
+	
+	public function facebookAccount()
+	{
+		return $this->belongsTo(FacebookAccount::class);
+	}
 }

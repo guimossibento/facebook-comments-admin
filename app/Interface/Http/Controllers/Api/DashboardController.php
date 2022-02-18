@@ -2,6 +2,7 @@
 
 namespace App\Interface\Http\Controllers\Api;
 
+use App\Domain\Models\CommentLog;
 use App\Domain\Models\CommentRequestLog;
 use App\Domain\Models\Niche;
 use App\Domain\Tasks\ExecuteCommentsTask;
@@ -63,7 +64,13 @@ class DashboardController
 				return;
 			}
 			
-			(new ExecuteCommentsTask())->onQueue('comment-task')->execute($facebookAccount, request()->get('url'), $comments[$commentIndex]['text'], $commentRequestLog->id);
+			$post_url = request()->get('url');
+			
+			CommentLog::query()
+				->where('facebook_account_id', $facebookAccount->id)
+				->where('post_url', $post_url)
+			
+			(new ExecuteCommentsTask())->onQueue('comment-task')->execute($facebookAccount, $post_url, $comments[$commentIndex]['text'], $commentRequestLog->id);
 			
 			$commentIndex++;
 		});
