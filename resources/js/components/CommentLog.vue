@@ -48,7 +48,7 @@
                 <tr v-for="commnetLog in commnetLogs.data" :key="commnetLog.id">
                   <td>{{ commnetLog.id }}</td>
                   <td>{{ commnetLog.created_at | myDate }}</td>
-                  <td>{{ commnetLog.facebook_account ? commnetLog.facebook_account.name : null}}</td>
+                  <td>{{ commnetLog.facebook_account != null ? commnetLog.facebook_account.name : null }}</td>
                   <td>{{ commnetLog.post_url }}</td>
                   <td>{{ commnetLog.comment }}</td>
                   <td>{{ commnetLog.status }}
