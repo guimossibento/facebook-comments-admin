@@ -222,7 +222,6 @@ export default {
     window.Echo = new Echo({
       broadcaster: 'pusher',
       key: 'websocketkey',
-      wsPath: '/broadcast/comment-log',
       wsHost: window.location.hostname,
       wsPort: 6001,
       wssPort: 6001,
