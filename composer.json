@@ -42,9 +42,6 @@
       "dont-discover": []
     }
   },
-  "engines": {
-    "node": "14.*"
-  },
   "autoload": {
     "psr-4": {
       "App\\": "app/",
