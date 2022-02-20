@@ -6,6 +6,7 @@ use App\Domain\Models\CommentLog;
 use App\Domain\Models\CommentRequestLog;
 use App\Domain\Models\Niche;
 use App\Domain\Tasks\ExecuteCommentsTask;
+use App\Events\CommentRequestLogEvent;
 
 class DashboardController
 {
@@ -52,6 +53,9 @@ class DashboardController
 			"total_request" => $facebookAccounts->count(),
 			"niche_id" => request()->get('niche')
 		]);
+		
+		$data = $commentRequestLog::with(['niche', 'commentLogs'])->find($commentRequestLog->id);
+		CommentRequestLogEvent::dispatch($data);
 		
 		$commentIndex = 0;
 		$message['message'] = '';

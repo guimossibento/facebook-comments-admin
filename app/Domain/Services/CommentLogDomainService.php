@@ -4,7 +4,7 @@ namespace App\Domain\Services;
 
 use App\Domain\Models\CommentLog;
 use App\Domain\Models\FacebookAccount;
-use App\Infrastructure\Events\CommentLogEvent;
+use App\Events\CommentLogEvent;
 use App\Infrastructure\Repositories\CommentLogRepository;
 
 class CommentLogDomainService
@@ -27,6 +27,7 @@ class CommentLogDomainService
 	public function store(array $data)
 	{
 		$data = $this->commentLog::create($data);
+		$data = $data::with('facebookAccount')->find($data->id);
 		
 		CommentLogEvent::dispatch($data);
 		

@@ -231,9 +231,8 @@ export default {
       enabledTransports: ['ws', 'wss']
     });
 
-    window.Echo.channel('comment-log')
-        .listen('CommentLogEvent', (e) => {
-          console.log(e);
+    window.Echo.channel("comment-log")
+        .listen("CommentLogEvent", e => {
           this.commnetLogs.data.unshift(e.commentLog);
         });
 

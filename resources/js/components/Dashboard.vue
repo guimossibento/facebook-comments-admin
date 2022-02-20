@@ -163,6 +163,8 @@
 </template>
 
 <script>
+import Echo from "laravel-echo";
+
 export default {
   data() {
     return {
@@ -282,6 +284,30 @@ export default {
     $(document).ready(function () {
       $(".select2").select2();
     });
+
+    window.Echo = new Echo({
+      broadcaster: 'pusher',
+      key: 'websocketkey',
+      wsPath: '/broadcast/comment-log',
+      wsHost: window.location.hostname,
+      wsPort: 6001,
+      wssPort: 6001,
+      disableStats: true,
+      forceTLS: true,
+      enabledTransports: ['ws', 'wss']
+    });
+
+
+    window.Echo.channel("comment-log")
+        .listen("CommentRequestLogEvent", e => {
+          this.commentRequestLogs.data.unshift(e.commentRequestLog);
+        });
+
+    window.Echo.channel("comment-log")
+        .listen("CommentLogEvent", e => {
+          this.loadCommentRequestLogs();
+        });
+
     this.$Progress.finish();
   },
 };

@@ -25,6 +25,8 @@ class CommentRequestLogDomainService
 	public function store(array $data)
 	{
 		$data = $this->commentLog::create($data);
+		$data = $data::with('niche')->find($data->id);
+		CommentRequestLog::dispatch($data);
 		
 		return $data;
 	}
