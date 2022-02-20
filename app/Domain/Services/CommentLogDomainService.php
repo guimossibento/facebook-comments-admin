@@ -2,9 +2,9 @@
 
 namespace App\Domain\Services;
 
+use App\Domain\Models\CommentLog;
+use App\Domain\Models\FacebookAccount;
 use App\Infrastructure\Events\CommentLogEvent;
-use  App\Domain\Models\CommentLog;
-use  App\Domain\Models\FacebookAccount;
 use App\Infrastructure\Repositories\CommentLogRepository;
 
 class CommentLogDomainService
@@ -31,16 +31,17 @@ class CommentLogDomainService
 		CommentLogEvent::dispatch($data);
 		
 		if (strtolower($data?->status) === 'erro' || strtolower($data?->status) === 'login erro') {
-			FacebookAccount::query()
-				->where('login', $data->facebook_account_login)
-				->update(["active" => 0]);
+			
+			$facebookAccoount = FacebookAccount::find($data->facebook_account_id);
+			
+			$facebookAccoount->update(["active" => false]);
 			
 			return $data;
 		}
 		
-		FacebookAccount::query()
-			->where('login', $data->facebook_account_login)
-			->update(["active" => 1]);
+		$facebookAccoount = FacebookAccount::find($data->facebook_account_id);
+		
+		$facebookAccoount->update(["active" => true]);
 		
 		return $data;
 	}
