@@ -26,20 +26,20 @@ class DashboardController
 		)
 			->find(request()->get('niche'))
 			?->facebookAccounts;
-		
+
+    $facebookAccounts = $facebookAccounts->filter(function ($facebookAccount) {
+      return blank(CommentLog::query()
+        ->where('facebook_account_id', $facebookAccount->id)
+        ->where('post_url', request()->get('url'))
+        ->first());
+    });
+
+    $facebookAccounts = $facebookAccounts->take(request()->get('comment_amount'));
+
 		if (blank($facebookAccounts)) {
 			return response(["message" => "Sem contas para execução."], 400);
 		}
-		
-		$facebookAccounts = $facebookAccounts->filter(function ($facebookAccount) {
-			return blank(CommentLog::query()
-				->where('facebook_account_id', $facebookAccount->id)
-				->where('post_url', request()->get('url'))
-				->first());
-		});
-		
-		$facebookAccounts = $facebookAccounts->take(request()->get('comment_amount'));
-		
+
 		$comments = Niche::with('comments')
 			->find(request()->get('niche'))
 			?->comments->toArray();
