@@ -14,7 +14,7 @@ class FacebookAccountRepository extends EntityRepository
     protected array $allowedIncludes = FacebookAccount::allowedIncludes;
 //    protected array $allowedAppends = FacebookAccount::allowedAppends;
     protected array $allowedScopes = FacebookAccount::allowedScopes;
-//    protected array $exactFilters = FacebookAccount::exactFilters;
-//    protected array $partialFilters = FacebookAccount::partialFilters;
+    protected array $exactFilters = FacebookAccount::exactFilters;
+    protected array $partialFilters = FacebookAccount::partialFilters;
 
 }

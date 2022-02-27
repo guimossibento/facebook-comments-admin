@@ -23,15 +23,40 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive">
-              <div class="float-right">
-                <pagination
-                    :data="facebookAccounts"
-                    :limit="-1"
-                    @pagination-change-page="getResults"
-                >
-                  <span slot="prev-nav">Anterior</span>
-                  <span slot="next-nav">Próxima</span>
-                </pagination>
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group text-center">
+                    <label>Status</label>
+                    <select
+                        name="active_filter"
+                        v-model="filters.active"
+                        id="active_filter"
+                        @click="loadFacebookAccounts"
+                        class="form-control text-center filters"
+                    >
+                      <option :selected="filters.active === true" value="true">
+                        Ativa
+                      </option>
+                      <option :selected="filters.active === false" value="false">
+                        Desativada
+                      </option>
+                    </select>
+                    <has-error :form="form" field="gender"></has-error>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="float-right">
+                  <pagination
+                      :data="facebookAccounts"
+                      :limit="-1"
+                      @pagination-change-page="getResults"
+                  >
+                    <span slot="prev-nav">Anterior</span>
+                    <span slot="next-nav">Próxima</span>
+                  </pagination>
+                </div>
               </div>
               <table class="table table-hover">
                 <thead>
@@ -278,6 +303,9 @@ export default {
     return {
       editmode: false,
       facebookAccounts: {},
+      filters: {
+        active: true
+      },
       form: new Form({
         id: "",
         name: "",
@@ -294,9 +322,8 @@ export default {
   methods: {
     getResults(page = 1) {
       this.$Progress.start();
-
       axios
-          .get("api/facebook-accounts?page=" + page)
+          .get("api/facebook-accounts?filter[active]=" + this.filters.active + "&include=niches&page=" + page)
           .then(({data}) => (this.facebookAccounts = data.data));
 
       this.$Progress.finish();
@@ -305,7 +332,7 @@ export default {
       this.$Progress.start();
       if (this.$gate.isAdmin()) {
         axios
-            .get("api/facebook-accounts?include=niches")
+            .get("api/facebook-accounts?filter[active]=" + this.filters.active + "&include=niches")
             .then(({data}) => (this.facebookAccounts = data.data));
       }
       this.$Progress.finish();
@@ -373,6 +400,7 @@ export default {
       this.editmode = true;
       this.form.reset();
 
+      console.log(this.filters.active)
       $("#addNew").modal("show");
       this.form.fill(facebookAccount);
     },
