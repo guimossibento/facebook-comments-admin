@@ -23,6 +23,16 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive">
+              <div class="float-right">
+                <pagination
+                    :data="facebookAccounts"
+                    :limit="-1"
+                    @pagination-change-page="getResults"
+                >
+                  <span slot="prev-nav">Anterior</span>
+                  <span slot="next-nav">Próxima</span>
+                </pagination>
+              </div>
               <div class="row">
                 <div class="col-sm-3">
                   <div class="form-group text-center">
@@ -43,19 +53,6 @@
                     </select>
                     <has-error :form="form" field="gender"></has-error>
                   </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="float-right">
-                  <pagination
-                      :data="facebookAccounts"
-                      :limit="-1"
-                      @pagination-change-page="getResults"
-                  >
-                    <span slot="prev-nav">Anterior</span>
-                    <span slot="next-nav">Próxima</span>
-                  </pagination>
                 </div>
               </div>
               <table class="table table-hover">
