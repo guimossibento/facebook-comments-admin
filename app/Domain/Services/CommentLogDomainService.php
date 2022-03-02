@@ -42,7 +42,7 @@ class CommentLogDomainService
 		
 		$facebookAccoount = FacebookAccount::find($data->facebook_account_id);
 		
-		$facebookAccoount->update(["active" => true, "last_comment_date"=> now()]);
+		$facebookAccoount->update(["active" => true, "last_comment"=> now()]);
 		
 		return $data;
 	}

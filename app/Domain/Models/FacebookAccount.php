@@ -20,7 +20,7 @@ class FacebookAccount extends Model
     "gender",
     "secret_2fa",
     "active",
-    "last_comment_date"
+    "last_comment"
   ];
 
   public const allowedFields = [
@@ -30,7 +30,7 @@ class FacebookAccount extends Model
     "gender",
     "secret_2fa",
     "active",
-    "last_comment_date"
+    "last_comment"
   ];
 
   public const allowedScopes = [];

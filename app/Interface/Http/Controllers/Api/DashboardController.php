@@ -21,7 +21,7 @@ class DashboardController
             $q->where('facebook_accounts.active', true);
             $q->where('facebook_accounts.secret_2fa', '!=', null);
           }
-          $q->orderBy('facebook_accounts.last_comment_date', 'asc');
+          $q->orderBy('facebook_accounts.last_comment', 'asc');
         }
       ]
     )
