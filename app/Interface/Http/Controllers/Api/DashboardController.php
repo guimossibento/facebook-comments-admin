@@ -48,8 +48,8 @@ class DashboardController
       ->filter(function ($comment) {
         return blank(CommentLog::query()
           ->where('comment', $comment->text)
-          ->where('post_url', request()->get('url')
-            ->where('status', 'like', '%Sucesso%'))
+          ->where('post_url', request()->get('url'))
+          ->where('status', 'like', '%Sucesso%')
           ->first());
       })
       ->toArray());
