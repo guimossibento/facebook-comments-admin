@@ -21,18 +21,20 @@ class DashboardController
             $q->where('facebook_accounts.active', true);
             $q->where('facebook_accounts.secret_2fa', '!=', null);
           }
+          $q->orderBy('last_comment_date', 'asc');
         }
       ]
     )
       ->find(request()->get('niche'))
       ?->facebookAccounts;
 
-//    $facebookAccounts = $facebookAccounts->filter(function ($facebookAccount) {
-//      return blank(CommentLog::query()
-//        ->where('facebook_account_id', $facebookAccount->id)
-//        ->where('post_url', request()->get('url'))
-//        ->first());
-//    });
+    $facebookAccounts = $facebookAccounts->filter(function ($facebookAccount) {
+      return blank(CommentLog::query()
+        ->where('facebook_account_id', $facebookAccount->id)
+        ->where('post_url', request()->get('url'))
+        ->where('status', 'like', '%Sucesso%')
+        ->first());
+    });
 
     $facebookAccounts = $facebookAccounts->take(request()->get('comment_amount'));
 
@@ -46,7 +48,8 @@ class DashboardController
       ->filter(function ($comment) {
         return blank(CommentLog::query()
           ->where('comment', $comment->text)
-          ->where('post_url', request()->get('url'))
+          ->where('post_url', request()->get('url')
+            ->where('status', 'like', '%Sucesso%'))
           ->first());
       })
       ->toArray());
