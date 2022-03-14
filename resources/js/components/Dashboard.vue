@@ -49,6 +49,7 @@
                         type="text"
                         class="form-control positiveNumber"
                         id="comment_amount"
+                        name="comment_amount"
                         value="1"
                     />
                   </div>
@@ -58,6 +59,7 @@
                         required
                         class="form-control"
                         id="niches"
+                        name="niches"
                         v-model="form.niche"
                     >
                       <option disabled>Selecione um nicho</option>
@@ -127,7 +129,8 @@
                 <tr v-for="commentRequest in commentRequestLogs.data" :key="commentRequest.id">
                   <td>{{ commentRequest.id }}</td>
                   <td>{{ commentRequest.created_at | myDate }}</td>
-                  <td>{{ commentRequest.niche.name }}</td>
+                  <td v-if="commentRequest.niche !== null">{{ commentRequest.niche.name }}</td>
+                  <td v-if="commentRequest.niche === null">Nicho Apagado</td>
                   <td>{{ commentRequest.post_url }}</td>
                   <td>
                     {{ getTotalCommentLogsSuccess(commentRequest.comment_logs) }}
