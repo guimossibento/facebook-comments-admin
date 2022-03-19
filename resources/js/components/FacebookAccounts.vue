@@ -101,11 +101,6 @@
                     <a href="#" @click="editModal(facebookAccount)">
                       <i class="fa fa-edit blue"></i>
                     </a>
-
-                    <a href="#" @click="testLogin()">
-                      <i class="fa fa-edit blue"></i>
-                    </a>
-
                     <a
                         href="#"
                         @click="deleteFacebookAccount(facebookAccount.id)"
