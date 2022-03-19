@@ -18,9 +18,9 @@ class DashboardController
         'facebookAccounts' => function ($q) {
           if (request()->get('gender') !== 'A') {
             $q->where('facebook_accounts.gender', request()->get('gender'));
-            $q->where('facebook_accounts.active', true);
-            $q->where('facebook_accounts.secret_2fa', '!=', null);
           }
+          $q->where('facebook_accounts.secret_2fa', '!=', null);
+          $q->where('facebook_accounts.active', true);
           $q->orderBy('facebook_accounts.last_comment', 'asc');
         }
       ]

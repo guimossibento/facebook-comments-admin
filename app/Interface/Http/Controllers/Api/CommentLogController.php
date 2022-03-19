@@ -32,9 +32,10 @@ class CommentLogController extends AController
 	public function store(Request $request)
 	{
 		$facebook_account = FacebookAccount::query()
-			->where('login', $request->get('facebook_account_login'))->first();
-		
-		$data = $request->all();
+        ->where('login', trim($request->get('facebook_account_login')))->first();
+
+    $data = $request->all();
+
 		unset($data["facebook_account_login"]);
 		
 		$data = array_merge($data, ["facebook_account_id" => $facebook_account->id]);
