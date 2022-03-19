@@ -13,7 +13,7 @@ class TestLoginTask
 
     public function execute(array $data)
     {
-        Http::withHeaders(['Authorization' => env('JWT_TOKEN_PUPPETEER')])
+        return Http::withHeaders(['Authorization' => env('JWT_TOKEN_PUPPETEER')])
             ->acceptJson()
             ->contentType('application/json')
             ->put("http://localhost:8081/api/comment", $data)

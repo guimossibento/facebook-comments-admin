@@ -2,9 +2,20 @@
 
 namespace App\Domain\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $login
+ * @property string $password
+ * @property string $gender
+ * @property string $secret_2fa
+ * @property bool $active
+ * @property Carbon $last_comment
+ */
 class FacebookAccount extends Model
 {
   use HasFactory;

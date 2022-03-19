@@ -101,10 +101,10 @@
                     <a href="#" @click="editModal(facebookAccount)">
                       <i class="fa fa-edit blue"></i>
                     </a>
-                    <a
-                        href="#"
-                        @click="deleteFacebookAccount(facebookAccount.id)"
-                    >
+                    <a href="#" @click="testLogin(facebookAccount.login)">
+                      <i class="fa fa-user-check blue"></i>
+                    </a>
+                    <a href="#" @click="deleteFacebookAccount(facebookAccount.id)">
                       <i class="fa fa-trash red"></i>
                     </a>
                   </td>
@@ -428,19 +428,26 @@ export default {
       $("#addNew").modal("show");
       this.form.fill(facebookAccount);
     },
-    testLogin() {
-      this.$Progress.start();
-
-      this.form
-          .post("api/facebook-accounts/test-login")
+    testLogin(login) {
+      if (this.form.login.length > 0) {
+        login = this.form.login
+      }
+      axios
+          .post("api/facebook-accounts/test-login", {"login": login})
           .then((response) => {
-
+            if (response.status === 200) {
+              Toast.fire({
+                icon: "success",
+                title: "Aguarde, processando teste!",
+              });
+            }
           })
           .catch((error) => {
             Toast.fire({
               icon: "error",
-              title: "Some error occured! Please try again",
+              title: error.response.data.message,
             });
+            this.$Progress.fail();
           });
     },
     newModal() {
