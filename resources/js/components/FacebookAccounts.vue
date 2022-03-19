@@ -51,7 +51,18 @@
                         Desativada
                       </option>
                     </select>
-                    <has-error :form="form" field="gender"></has-error>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group text-center">
+                    <label>Nome</label>
+                    <input
+                        name="name_filter"
+                        v-model="filters.name"
+                        id="name_filter"
+                        @change="loadFacebookAccounts"
+                        class="form-control text-center filters"
+                    >
                   </div>
                 </div>
               </div>
@@ -82,12 +93,16 @@
                     {{ facebookAccount.active | status }}
                   </td>
                   <td>
-                    <span v-for=" niche in facebookAccount.niches" :key="niche.id">
+                    <span v-for="niche in facebookAccount.niches" :key="niche.id">
                       {{ niche.name }};
                     </span>
                   </td>
                   <td>
                     <a href="#" @click="editModal(facebookAccount)">
+                      <i class="fa fa-edit blue"></i>
+                    </a>
+
+                    <a href="#" @click="testLogin()">
                       <i class="fa fa-edit blue"></i>
                     </a>
 
@@ -301,7 +316,8 @@ export default {
       editmode: false,
       facebookAccounts: {},
       filters: {
-        active: true
+        active: true,
+        name: null
       },
       form: new Form({
         id: "",
@@ -319,8 +335,16 @@ export default {
   methods: {
     getResults(page = 1) {
       this.$Progress.start();
+      let url = "api/facebook-accounts?filter[active]=" + this.filters.active;
+
+      if (this.filters.name !== null) {
+        url += `&filter[name]=${this.filters.name}`
+      }
+
+      url += "&include=niches&page=" + page;
+
       axios
-          .get("api/facebook-accounts?filter[active]=" + this.filters.active + "&include=niches&page=" + page)
+          .get(url)
           .then(({data}) => (this.facebookAccounts = data.data));
 
       this.$Progress.finish();
@@ -328,8 +352,16 @@ export default {
     loadFacebookAccounts() {
       this.$Progress.start();
       if (this.$gate.isAdmin()) {
+        let url = "api/facebook-accounts?filter[active]=" + this.filters.active;
+
+        if (this.filters.name !== null) {
+          url += `&filter[name]=${this.filters.name}`
+        }
+
+        url += "&include=niches";
+
         axios
-            .get("api/facebook-accounts?filter[active]=" + this.filters.active + "&include=niches")
+            .get(url)
             .then(({data}) => (this.facebookAccounts = data.data));
       }
       this.$Progress.finish();

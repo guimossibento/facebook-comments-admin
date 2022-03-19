@@ -36,7 +36,7 @@ class FacebookAccount extends Model
   public const allowedScopes = [];
   public const exactFilters = ['active'];
 
-  public const partialFilters = [];
+  public const partialFilters = ['name'];
 
   public const allowedIncludes = [
     'niches'
