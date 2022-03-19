@@ -60,7 +60,7 @@
                         name="name_filter"
                         v-model="filters.name"
                         id="name_filter"
-                        @change="loadFacebookAccounts"
+                        @keyup="loadFacebookAccounts"
                         class="form-control text-center filters"
                     >
                   </div>
