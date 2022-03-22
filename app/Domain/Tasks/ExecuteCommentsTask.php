@@ -20,6 +20,7 @@ class ExecuteCommentsTask
 			"comment" => $comment,
 			"secret_2fa" => $facebookAccount->secret_2fa,
 			"comment_request_log_id" => $commentRequestLogID,
+      "test_login" => false,
 			"user_id" => $userId,
 		];
 		
