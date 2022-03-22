@@ -89,7 +89,13 @@ class DashboardController
 
       $post_url = request()->get('url');
 
-      (new ExecuteCommentsTask())->onQueue('comment-task')->execute($facebookAccount, $post_url, $comments[$commentIndex]['text'], $commentRequestLog->id);
+      (new ExecuteCommentsTask())->onQueue('comment-task')->execute(
+        $facebookAccount,
+        $post_url,
+        $comments[$commentIndex]['text'],
+        $commentRequestLog->id,
+        Auth::user()?->id
+      );
 
       $commentIndex++;
     });

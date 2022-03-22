@@ -8,6 +8,7 @@ use App\Domain\Tasks\TestLoginTask;
 use App\Interface\Http\Controllers\AController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class FacebookAccountController extends AController
 {
@@ -98,11 +99,11 @@ class FacebookAccountController extends AController
         "post_url" => "Teste Login",
         "comment" => "Teste Login",
         "secret_2fa" => $facebook_account?->secret_2fa,
-        "test_login" => true
+        "test_login" => true,
+        "user_id" => Auth::user()->id
       );
+      (new TestLoginTask)->onQueue('comment-task')->execute($data);
     }
-
-    (new TestLoginTask)->onQueue('comment-task')->execute($data);
 
     return true;
   }

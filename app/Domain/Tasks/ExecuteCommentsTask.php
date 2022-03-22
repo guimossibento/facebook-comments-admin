@@ -2,8 +2,8 @@
 
 namespace App\Domain\Tasks;
 
-use App\Domain\Models\CommentRequestLog;
 use App\Domain\Models\FacebookAccount;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Spatie\QueueableAction\QueueableAction;
 use Spatie\RateLimitedMiddleware\RateLimited as RateLimited;
@@ -12,7 +12,7 @@ class ExecuteCommentsTask
 {
 	use QueueableAction;
 	
-	public function execute(FacebookAccount $facebookAccount, string $url, string $comment, int $commentRequestLogID)
+	public function execute(FacebookAccount $facebookAccount, string $url, string $comment, int $commentRequestLogID, int $userId)
 	{
 		$data = [
 			"user" => $facebookAccount->login,
@@ -21,6 +21,7 @@ class ExecuteCommentsTask
 			"comment" => $comment,
 			"secret_2fa" => $facebookAccount->secret_2fa,
 			"comment_request_log_id" => $commentRequestLogID,
+			"user_id" => $userId,
 		];
 		
 		Http::withHeaders(['Authorization' => env('JWT_TOKEN_PUPPETEER')])

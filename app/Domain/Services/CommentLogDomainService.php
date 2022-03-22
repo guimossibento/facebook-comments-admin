@@ -28,22 +28,27 @@ class CommentLogDomainService
 	public function store(array $data)
 	{
 
-    $data['user_id'] = Auth::user()?->id;
+    $data['user_id'] =  $data['user_id'] ?? Auth::user()?->id;
 		$data = $this->commentLog::create($data);
     $data = $data::with('facebookAccount')->find($data->id);
 
 		CommentLogEvent::dispatch($data);
-		
+
+    $facebookAccoount = FacebookAccount::find($data->facebook_account_id);
+
 		if (strtolower($data?->status) === 'erro' || strtolower($data?->status) === 'login erro') {
-			
-			$facebookAccoount = FacebookAccount::find($data->facebook_account_id);
 			
 			$facebookAccoount->update(["active" => false]);
 			
 			return $data;
 		}
-		
-		$facebookAccoount = FacebookAccount::find($data->facebook_account_id);
+
+		if (strtolower($data?->status) == 'login sucesso') {
+
+			$facebookAccoount->update(["active" => true]);
+      $facebookAccoount->refresh();
+			return $data;
+		}
 		
 		$facebookAccoount->update(["active" => true, "last_comment"=> now()]);
 		
