@@ -59,11 +59,13 @@ class DashboardController
       return response(["message" => "Sem comentários para execução."], 400);
     }
 
+    $userId = Auth::user()?->id;
+
     $commentRequestLog = CommentRequestLog::create([
       "post_url" => request()->get('url'),
       "total_request" => $facebookAccounts->count(),
       "niche_id" => request()->get('niche'),
-      "user_id" => Auth::user()->id,
+      "user_id" => $userId,
     ]);
 
     $data = $commentRequestLog::with(['niche', 'commentLogs'])->find($commentRequestLog->id);
@@ -72,7 +74,7 @@ class DashboardController
     $commentIndex = 0;
     $message['message'] = '';
 
-    $facebookAccounts->map(function ($facebookAccount) use ($comments, &$commentIndex, &$message, &$commentRequestLog) {
+    $facebookAccounts->map(function ($facebookAccount) use ($comments, &$commentIndex, &$message, &$commentRequestLog, $userId) {
       if (!array_key_exists($commentIndex, $comments) ?? true) {
         $commentIndex = 0;
       }
@@ -94,7 +96,7 @@ class DashboardController
         $post_url,
         $comments[$commentIndex]['text'],
         $commentRequestLog->id,
-        Auth::user()?->id
+        $userId
       );
 
       $commentIndex++;
