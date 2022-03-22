@@ -27,8 +27,6 @@ class CommentLogDomainService
 	
 	public function store(array $data)
 	{
-
-    $data['user_id'] =  $data['user_id'] ?? Auth::user()?->id;
 		$data = $this->commentLog::create($data);
     $data = $data::with('facebookAccount')->find($data->id);
 
