@@ -11,6 +11,7 @@ class CommentLogRepository extends EntityRepository
 	
 	protected string $defaultSort = CommentLog::defaultSort;
 	protected array $allowedIncludes = CommentLog::allowedIncludes;
+  protected array $exactFilters = CommentLog::exactFilters;
 	
 	
 	public function deleteAll()

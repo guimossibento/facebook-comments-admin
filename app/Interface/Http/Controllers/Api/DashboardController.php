@@ -7,6 +7,7 @@ use App\Domain\Models\CommentRequestLog;
 use App\Domain\Models\Niche;
 use App\Domain\Tasks\ExecuteCommentsTask;
 use App\Events\CommentRequestLogEvent;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController
 {
@@ -61,7 +62,8 @@ class DashboardController
     $commentRequestLog = CommentRequestLog::create([
       "post_url" => request()->get('url'),
       "total_request" => $facebookAccounts->count(),
-      "niche_id" => request()->get('niche')
+      "niche_id" => request()->get('niche'),
+      "user_id" => Auth::user()->id,
     ]);
 
     $data = $commentRequestLog::with(['niche', 'commentLogs'])->find($commentRequestLog->id);

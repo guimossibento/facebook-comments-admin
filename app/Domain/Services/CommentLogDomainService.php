@@ -6,6 +6,7 @@ use App\Domain\Models\CommentLog;
 use App\Domain\Models\FacebookAccount;
 use App\Events\CommentLogEvent;
 use App\Infrastructure\Repositories\CommentLogRepository;
+use Illuminate\Support\Facades\Auth;
 
 class CommentLogDomainService
 {
@@ -26,9 +27,11 @@ class CommentLogDomainService
 	
 	public function store(array $data)
 	{
+
+    $data['user_id'] = Auth::user()?->id;
 		$data = $this->commentLog::create($data);
-		$data = $data::with('facebookAccount')->find($data->id);
-		
+    $data = $data::with('facebookAccount')->find($data->id);
+
 		CommentLogEvent::dispatch($data);
 		
 		if (strtolower($data?->status) === 'erro' || strtolower($data?->status) === 'login erro') {

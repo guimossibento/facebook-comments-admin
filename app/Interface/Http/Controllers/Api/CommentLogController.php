@@ -39,7 +39,7 @@ class CommentLogController extends AController
 		unset($data["facebook_account_login"]);
 		
 		$data = array_merge($data, ["facebook_account_id" => $facebook_account->id]);
-		
+
 		$stored = $this->service->store($data);
 		
 		return $this->sendResponse($stored, '');
