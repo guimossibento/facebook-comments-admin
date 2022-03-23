@@ -366,8 +366,6 @@ export default {
         this.source = [];
         this.destination = [];
 
-        this.testLogin();
-
         this.form
             .post("api/facebook-accounts")
             .then((response) => {
@@ -377,6 +375,8 @@ export default {
                   icon: "success",
                   title: response.data.message,
                 });
+
+                this.testLogin();
 
                 this.$Progress.finish();
                 this.loadFacebookAccounts();
