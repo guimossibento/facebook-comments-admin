@@ -36,7 +36,6 @@
                 <tr>
                   <th>ID</th>
                   <th>Data</th>
-                  <th>Nome</th>
                   <th>Post</th>
                   <th>Comentário</th>
                   <th>Status</th>
@@ -48,7 +47,6 @@
                 <tr v-for="commnetLog in commnetLogs.data" :key="commnetLog.id">
                   <td>{{ commnetLog.id }}</td>
                   <td>{{ commnetLog.created_at | myDate }}</td>
-                  <td>{{ commnetLog.facebook_account != null ? commnetLog.facebook_account.name : null }}</td>
                   <td>{{ commnetLog.post_url }}</td>
                   <td>{{ commnetLog.comment }}</td>
                   <td>{{ commnetLog.status }}
@@ -157,9 +155,8 @@ export default {
     },
     loadCommentLog() {
       this.$Progress.start();
-      if (this.$gate.isAdmin()) {
         axios.get("api/comment-logs?include=facebookAccount").then(({data}) => (this.commnetLogs = data.data));
-      }
+
       this.$Progress.finish();
     },
     deleteCommentLog(id) {
