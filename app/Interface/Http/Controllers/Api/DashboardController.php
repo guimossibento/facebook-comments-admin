@@ -96,7 +96,7 @@ class DashboardController
         $post_url,
         $comments[$commentIndex]['text'],
         $commentRequestLog->id,
-        $userId
+        Auth::user()?->id
       );
 
       $commentIndex++;
