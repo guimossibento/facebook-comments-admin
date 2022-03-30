@@ -74,7 +74,7 @@ class DashboardController
     $commentIndex = 0;
     $message['message'] = '';
 
-    $facebookAccounts->map(function ($facebookAccount) use ($comments, &$commentIndex, &$message, &$commentRequestLog, $userId) {
+    $facebookAccounts->map(function ($facebookAccount) use ($comments, &$commentIndex, &$message, &$commentRequestLog, &$data) {
       if (!array_key_exists($commentIndex, $comments) ?? true) {
         $commentIndex = 0;
       }
@@ -96,7 +96,7 @@ class DashboardController
         $post_url,
         $comments[$commentIndex]['text'],
         $commentRequestLog->id,
-        Auth::user()?->id
+        $data->user_id
       );
 
       $commentIndex++;
