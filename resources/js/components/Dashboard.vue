@@ -217,7 +217,7 @@ export default {
     executeComment() {
       this.$Progress.start();
       axios
-          .put("api/dashboard/execute-comments", this.form, {
+          .put("dashboard/execute-comments", this.form, {
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",

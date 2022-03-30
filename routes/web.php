@@ -30,6 +30,8 @@ Route::get('home', function () {
   return redirect('/dashboard');
 });
 
+Route::put('dashboard/execute-comments', [\App\Interface\Http\Controllers\Api\DashboardController::class, 'executeComments']);
+
 Route::get('niches/list', [\App\Interface\Http\Controllers\Api\NicheController::class, 'list']);
 Route::get('facebook-accounts/list', [\App\Interface\Http\Controllers\Api\FacebookAccountController::class, 'list']);
 Route::get('comments/list', [\App\Interface\Http\Controllers\Api\CommentController::class, 'list']);
