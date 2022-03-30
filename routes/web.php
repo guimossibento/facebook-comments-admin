@@ -30,6 +30,10 @@ Route::get('home', function () {
   return redirect('/dashboard');
 });
 
+Route::delete('api/comment-logs/delete/all', [\App\Interface\Http\Controllers\Api\CommentLogController::class, 'destroyAll']);
+Route::delete('api/comment-logs/{commentLog}', [\App\Interface\Http\Controllers\Api\CommentLogController::class, 'destroy']);
+Route::get('api/comment-request-logs', [\App\Interface\Http\Controllers\Api\CommentRequestLogController::class, 'index']);
+Route::get('api/comment-logs', [\App\Interface\Http\Controllers\Api\CommentLogController::class, 'index']);
 Route::put('dashboard/execute-comments', [\App\Interface\Http\Controllers\Api\DashboardController::class, 'executeComments']);
 
 Route::get('niches/list', [\App\Interface\Http\Controllers\Api\NicheController::class, 'list']);
