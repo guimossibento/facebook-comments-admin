@@ -4,7 +4,8 @@
 cd /var/www/html/facebook-comments-admin
 git checkout .
 git reset --hard
-sudo  git pull origin main
+git checkout main
+git pull origin main
 sudo  composer install
 yarn
 php artisan migrate
