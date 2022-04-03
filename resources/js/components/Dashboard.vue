@@ -196,16 +196,20 @@ export default {
     getResults(page = 1) {
       this.$Progress.start();
       axios
-          .get("api/comment-request-logs?include=commentLogs,niche&page=" + page)
-          .then(({data}) => (this.commentRequestLogs = data.data));
+          .get("api/comment-request-logs?include=commentLogs,niche&filter[user]=1&page=" + page)
+          .then(({data}) => (this.commentRequestLogs = data.data))
+          .catch((error) => {
+            console.log(error);
+          });
 
       this.$Progress.finish();
     },
     loadCommentRequestLogs() {
       this.$Progress.start();
       axios
-          .get("api/comment-request-logs?include=commentLogs,niche")
+          .get("api/comment-request-logs?include=commentLogs,niche&filter[user]=1")
           .then(({data}) => {
+            console.log(data)
             this.commentRequestLogs = data.data
           })
           .catch((error) => {
@@ -217,7 +221,7 @@ export default {
     executeComment() {
       this.$Progress.start();
       axios
-          .put("dashboard/execute-comments", this.form, {
+          .put("api/dashboard/execute-comments", this.form, {
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",

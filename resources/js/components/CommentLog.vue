@@ -148,14 +148,14 @@ export default {
       this.$Progress.start();
 
       axios
-          .get("api/comment-logs?include=facebookAccount&page=" + page)
+          .get("api/comment-logs?include=facebookAccount&filter[user]=1&page=" + page)
           .then(({data}) => (this.commnetLogs = data.data));
       // console.log(this.commnetLogs);
       this.$Progress.finish();
     },
     loadCommentLog() {
       this.$Progress.start();
-        axios.get("api/comment-logs?include=facebookAccount").then(({data}) => (this.commnetLogs = data.data));
+        axios.get("api/comment-logs?include=facebookAccount&filter[user]=1").then(({data}) => (this.commnetLogs = data.data));
 
       this.$Progress.finish();
     },
@@ -170,7 +170,7 @@ export default {
       }).then((result) => {
         // Send request to the server
         if (result.value) {
-          this.form.delete("api/comment-logs/" + id)
+          axios.delete("api/comment-logs/" + id)
               .then(() => {
                 Swal.fire("Apagado!", "Item foi apagado.", "success");
                 this.loadCommentLog();
@@ -192,7 +192,7 @@ export default {
       }).then((result) => {
         // Send request to the server
         if (result.value) {
-          this.form.delete("api/comment-logs/delete/all")
+          axios.delete("api/comment-logs/delete/all")
               .then(() => {
                 Swal.fire("Apagado!", "Histórico apagado.", "success");
                 this.loadCommentLog();
