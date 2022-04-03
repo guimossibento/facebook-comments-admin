@@ -43,9 +43,7 @@ class CommentLog extends Model
    */
   public function scopeUser(Builder $query)
   {
-    if (!is_null(Auth::id())) {
-      $query->where('user_id', Auth::id());
-    }
+    $query->where('user_id', Auth::id());
   }
 
   public function facebookAccount()
