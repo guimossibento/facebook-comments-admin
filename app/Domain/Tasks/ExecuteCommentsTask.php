@@ -27,7 +27,7 @@ class ExecuteCommentsTask
     Http::withHeaders(['Authorization' => env('JWT_TOKEN_PUPPETEER')])
       ->acceptJson()
       ->contentType('application/json')
-      ->put("http://localhost:8081/api/comment", $data)
+      ->put(env('PUPPETEER_URL') . '/api/comment', $data)
       ->throw(function ($response, $e) {
         return $e;
       })
