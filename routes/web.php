@@ -24,7 +24,23 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('email/verify', '\App\Interface\Http\Controllers\Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', '\App\Interface\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
+Route::post('email/resend', '\App\Interface\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
+
+Route::get('register', '\App\Interface\Http\Controllers\Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', '\App\Interface\Http\Controllers\Auth\RegisterController@register');
+
+Route::get('password/reset', '\App\Interface\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', '\App\Interface\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', '\App\Interface\Http\Controllers\Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', '\App\Interface\Http\Controllers\Auth\ResetPasswordController@reset')->name('password.update');
+Route::get('password/confirm', '\App\Interface\Http\Controllers\Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
+Route::post('password/confirm', '\App\Interface\Http\Controllers\Auth\ConfirmPasswordController@confirm');
+
+Route::get('/login', [\App\Interface\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [\App\Interface\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::post('/logout', [\App\Interface\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::get('home', function () {
   return redirect('/dashboard');
@@ -35,7 +51,7 @@ Route::get('facebook-accounts/list', [\App\Interface\Http\Controllers\Api\Facebo
 Route::get('comments/list', [\App\Interface\Http\Controllers\Api\CommentController::class, 'list']);
 
 \BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter::webSocket('/broadcast/comment-log/app/{appKey}',
-\App\Interface\Http\Controllers\CommentLogSocketHandler::class);
+  \App\Interface\Http\Controllers\CommentLogSocketHandler::class);
 
 Route::get('/{vue_capture?}', function () {
   return view('home');

@@ -19,7 +19,7 @@ Route::get('version', function () {
 	return response()->json(['version' => config('app.version')]);
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/me', function (Request $request) {
 	Log::debug('User:' . serialize($request->user()));
 	return $request->user();
 });

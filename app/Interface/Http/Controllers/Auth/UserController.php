@@ -57,7 +57,7 @@ class UserController extends AController
             'type' => $request['type'],
         ]);
 
-        return $this->sendResponse($user, 'User Created Successfully');
+        return $this->sendResponse($user, 'Usuário criado com sucesso');
     }
 
     /**
@@ -79,7 +79,7 @@ class UserController extends AController
 
         $user->update($request->all());
 
-        return $this->sendResponse($user, 'User Information has been updated');
+        return $this->sendResponse($user, 'Informações do usuário atualizadas!');
     }
 
     /**
@@ -91,13 +91,11 @@ class UserController extends AController
     public function destroy($id)
     {
 
-        $this->authorize('isAdmin');
-
         $user = User::findOrFail($id);
         // delete the user
 
         $user->delete();
 
-        return $this->sendResponse([$user], 'User has been Deleted');
+        return $this->sendResponse([$user], 'Usuário deletado com sucesso!');
     }
 }
