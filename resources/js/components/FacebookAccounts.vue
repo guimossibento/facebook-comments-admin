@@ -424,7 +424,6 @@ export default {
       this.editmode = true;
       this.form.reset();
 
-      console.log(this.filters.active)
       $("#addNew").modal("show");
       this.form.fill(facebookAccount);
     },
@@ -484,6 +483,7 @@ export default {
     },
   },
   mounted() {
+    this.$gtag.pageview({page_title: 'Facebook Accounts'})
     console.log("FacebookAccount Component mounted.");
   },
   created() {

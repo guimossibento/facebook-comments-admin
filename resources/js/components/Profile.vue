@@ -201,6 +201,7 @@ export default {
     };
   },
   mounted() {
+    this.$gtag.pageview({page_title: 'Profile'})
     console.log("Component mounted.");
   },
   methods: {
@@ -254,7 +255,6 @@ export default {
         });
     },
   },
-
   created() {
     this.$Progress.start();
 

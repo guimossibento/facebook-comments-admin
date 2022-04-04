@@ -194,7 +194,6 @@ export default {
     },
     loadComments() {
       this.$Progress.start();
-      console.log(window)
       if (this.$gate.isAdmin()) {
         if (this.nicheId) {
           axios
@@ -215,7 +214,6 @@ export default {
       axios
           .get(window.location.origin + "/api/niches?filter[id]=" + niche_id)
           .then(({data}) => (this.niche = data.data.data[0]));
-      console.log(this.niche);
       this.$Progress.finish();
     },
     createComment() {
@@ -296,7 +294,7 @@ export default {
       }).then((result) => {
         // Send request to the server
         if (result.value) {
-          this.form
+          axios
               .delete(window.location.origin + "/api/comments/" + id)
               .then(() => {
                 Swal.fire("Apagado!", "Item foi apagado.", "success");
@@ -315,6 +313,7 @@ export default {
   }
   ,
   mounted() {
+    this.$gtag.pageview({page_title: 'Comments'})
     console.log("Comment Component mounted.");
   }
   ,

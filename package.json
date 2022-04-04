@@ -36,6 +36,7 @@
         "pusher-js": "4.4.0",
         "sweetalert2": "^9.17.2",
         "vform": "^1.0.1",
+        "vue-gtag": "^1.16.1",
         "vue-progressbar": "^0.7.5",
         "vue-router": "^3.4.9",
         "vue-select2": "^0.2.6"

@@ -168,7 +168,6 @@ export default {
   methods: {
     onChangeList: function ({source, destination}) {
       niches["data"] = destination;
-      console.log(niches["data"]);
       axios
           .put(`api/comments/${this.form.id}/niches`, niches["data"])
           .then((response) => {
@@ -303,12 +302,12 @@ export default {
     },
   },
   mounted() {
+    this.$gtag.pageview({page_title: 'Niches'})
     console.log("Niche Component mounted.");
   },
   created() {
     this.$Progress.start();
     this.loadNiches();
-    console.log(this.$route.query)
     this.$Progress.finish();
   },
 };

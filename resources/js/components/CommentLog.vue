@@ -155,7 +155,7 @@ export default {
     },
     loadCommentLog() {
       this.$Progress.start();
-        axios.get("api/comment-logs?include=facebookAccount&filter[user]=1").then(({data}) => (this.commnetLogs = data.data));
+      axios.get("api/comment-logs?include=facebookAccount&filter[user]=1").then(({data}) => (this.commnetLogs = data.data));
 
       this.$Progress.finish();
     },
@@ -210,6 +210,8 @@ export default {
     },
   },
   mounted() {
+    this.$gtag.pageview({page_title: 'Comment Log'})
+
     console.log("Comment Log Component mounted.");
   },
   created() {

@@ -176,6 +176,7 @@ export default {
     }
   },
   mounted() {
+    this.$gtag.pageview({page_title: 'Niche Facebook-Account'})
     console.log("FacebookAccount Component mounted.");
   },
   created() {

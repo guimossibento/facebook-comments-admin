@@ -313,6 +313,7 @@ export default {
     },
   },
   mounted() {
+    this.$gtag.pageview({page_title: 'Users'})
     console.log("User Component mounted.");
   },
   created() {

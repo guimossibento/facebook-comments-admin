@@ -94,8 +94,12 @@ Vue.component(
 
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/pt-br'
-
 Vue.use(ElementUI, { locale })
+
+import VueGtag from "vue-gtag"
+Vue.use(VueGtag, {
+    config: { id: "G-23N43STQJ1" }
+});
 
 // Filter Section
 

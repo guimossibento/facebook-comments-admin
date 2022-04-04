@@ -209,7 +209,6 @@ export default {
       axios
           .get("api/comment-request-logs?include=commentLogs,niche&filter[user]=1")
           .then(({data}) => {
-            console.log(data)
             this.commentRequestLogs = data.data
           })
           .catch((error) => {
@@ -233,6 +232,12 @@ export default {
                 icon: "success",
                 title: "Aguarde, processando comentários!",
               });
+
+              this.$gtag.purchase({
+                "transaction_id": Math.random().toString(),
+                "affiliation": "Execute Comment",
+                "value": 2.5
+              })
             }
           })
           .catch((error) => {
@@ -282,6 +287,7 @@ export default {
     },
   },
   mounted() {
+    this.$gtag.pageview({page_title: 'Dashboard'})
     console.log("Dashboard mounted.");
   },
   created() {
