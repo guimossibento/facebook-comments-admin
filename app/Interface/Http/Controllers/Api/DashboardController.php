@@ -6,7 +6,7 @@ use App\Domain\Models\CommentLog;
 use App\Domain\Models\CommentRequestLog;
 use App\Domain\Models\Niche;
 use App\Domain\Tasks\ExecuteCommentsTask;
-use App\Events\CommentRequestLogEvent;
+use App\Domain\Events\CommentRequestLogEvent;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController
@@ -59,7 +59,7 @@ class DashboardController
       return response(["message" => "Sem comentários para execução."], 400);
     }
 
-    $userId = Auth::user()?->id;
+    $userId = Auth::id();
 
     $commentRequestLog = CommentRequestLog::create([
       "post_url" => request()->get('url'),
