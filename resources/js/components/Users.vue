@@ -149,7 +149,7 @@
                   </select>
                   <has-error :form="form" field="type"></has-error>
                 </div>
-                <div v-show="form.id === user_session.id" class="form-group">
+                <div  class="form-group">
                   <label>Senha</label>
                   <input
                       v-model="form.password"
