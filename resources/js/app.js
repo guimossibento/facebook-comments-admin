@@ -136,6 +136,15 @@ $('.positiveNumber').mask('Z#', {
         }
     }
 });
+
+$('.commentAmount').mask('00', {
+    onComplete: function(amount) {
+        if(!/[0-1]\d|2[0-5]/.test(amount)){
+            alert("Quantidade não pode ser maior que 25 comentários.")
+        }
+    },
+});
+
 $('.money').mask("#################.##", { reverse: true });
 $('.stockCode').mask('SSSS00', {
     'translation': {

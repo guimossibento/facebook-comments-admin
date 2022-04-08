@@ -47,10 +47,9 @@
                         required
                         v-model="form.comment_amount"
                         type="text"
-                        class="form-control positiveNumber"
+                        class="form-control commentAmount"
                         id="comment_amount"
                         name="comment_amount"
-                        value="1"
                     />
                   </div>
                   <div class="form-group col-md-6">
@@ -219,6 +218,15 @@ export default {
     },
     executeComment() {
       this.$Progress.start();
+
+      if(this.form.comment_amount > 25){
+        Toast.fire({
+          icon: "error",
+          title: "Quantidade de comentários não pode ser maior que 25.",
+        });
+        return;
+      }
+
       axios
           .put("api/dashboard/execute-comments", this.form, {
             headers: {
@@ -232,6 +240,9 @@ export default {
                 icon: "success",
                 title: "Aguarde, processando comentários!",
               });
+
+              this.resetFormFields()
+              this.loadCommentRequestLogs();
 
               this.$gtag.purchase({
                 "transaction_id": Math.random().toString(),
@@ -285,8 +296,12 @@ export default {
         }
       });
     },
+    resetFormFields() {
+      this.form = { ...this.formCopy};
+    },
   },
   mounted() {
+    this.formCopy = { ...this.form};
     this.$gtag.pageview({page_title: 'Dashboard'})
     console.log("Dashboard mounted.");
   },
