@@ -231,7 +231,7 @@ export default {
 
     window.Echo.channel("comment-log")
         .listen("CommentLogEvent", e => {
-          this.commnetLogs.data.unshift(e.commentLog);
+          this.loadCommentLog();
         });
 
     this.$Progress.finish();

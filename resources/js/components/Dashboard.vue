@@ -327,7 +327,7 @@ export default {
 
     window.Echo.channel("comment-log")
         .listen("CommentRequestLogEvent", e => {
-          this.commentRequestLogs.data.unshift(e.commentRequestLog);
+          this.loadCommentRequestLogs();
         });
 
     window.Echo.channel("comment-log")
