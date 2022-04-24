@@ -325,12 +325,12 @@ export default {
 
 
     window.Echo.channel("comment-log")
-        .listen("CommentRequestLogEvent", e => {
+        .listen(".request", e => {
           this.loadCommentRequestLogs();
         });
 
     window.Echo.channel("comment-log")
-        .listen("CommentLogEvent", e => {
+        .listen(".comment", e => {
           this.loadCommentRequestLogs();
         });
 
