@@ -219,13 +219,13 @@ export default {
     executeComment() {
       this.$Progress.start();
 
-      if(this.form.comment_amount > 25){
-        Toast.fire({
-          icon: "error",
-          title: "Quantidade de comentários não pode ser maior que 25.",
-        });
-        return;
-      }
+      // if(this.form.comment_amount > 25){
+      //   Toast.fire({
+      //     icon: "error",
+      //     title: "Quantidade de comentários não pode ser maior que 25.",
+      //   });
+      //   return;
+      // }
 
       axios
           .put("api/dashboard/execute-comments", this.form, {
