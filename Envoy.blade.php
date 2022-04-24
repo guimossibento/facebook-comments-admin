@@ -6,7 +6,8 @@ git checkout .
 git reset --hard
 git checkout main
 git pull origin main
-sudo  composer install
+sudo composer install
+sudo composer dump-autoload
 yarn
 php artisan migrate
 chmod 777 -R storage/
