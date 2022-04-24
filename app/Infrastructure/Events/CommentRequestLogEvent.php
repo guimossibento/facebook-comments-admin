@@ -10,25 +10,25 @@ use Illuminate\Queue\SerializesModels;
 
 class CommentRequestLogEvent implements ShouldBroadcast
 {
-	use Dispatchable, InteractsWithSockets, SerializesModels;
-	
-	/**
-	 * Create a new event instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(public $commentRequestLog)
-	{
-	
-	}
-	
-	/**
-	 * Get the channels the event should broadcast on.
-	 *
-	 * @return \Illuminate\Broadcasting\Channel|array
-	 */
-	public function broadcastOn()
-	{
-		return new Channel('comment-log');
-	}
+  use Dispatchable, InteractsWithSockets, SerializesModels;
+
+  /**
+   * Create a new event instance.
+   *
+   * @return void
+   */
+  public function __construct(public $commentRequestLog)
+  {
+
+  }
+
+  /**
+   * Get the channels the event should broadcast on.
+   *
+   * @return \Illuminate\Broadcasting\Channel|array
+   */
+  public function broadcastOn()
+  {
+    return new Channel('comment-log');
+  }
 }
