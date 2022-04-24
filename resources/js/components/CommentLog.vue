@@ -231,7 +231,6 @@ export default {
 
     window.Echo.channel("comment-log")
         .listen(".comment", e => {
-          console.log(e)
           this.loadCommentLog();
         });
 
