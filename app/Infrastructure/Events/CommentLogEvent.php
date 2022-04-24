@@ -23,6 +23,16 @@ class CommentLogEvent implements ShouldBroadcast
   }
 
   /**
+   * The event's broadcast name.
+   *
+   * @return string
+   */
+  public function broadcastAs()
+  {
+    return 'comment';
+  }
+
+  /**
    * Get the channels the event should broadcast on.
    *
    * @return \Illuminate\Broadcasting\Channel|array
@@ -31,4 +41,5 @@ class CommentLogEvent implements ShouldBroadcast
   {
     return new Channel('comment-log');
   }
+
 }

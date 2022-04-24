@@ -242,7 +242,6 @@ export default {
               });
 
               this.resetFormFields()
-              this.loadCommentRequestLogs();
 
               this.$gtag.purchase({
                 "transaction_id": Math.random().toString(),
@@ -326,13 +325,13 @@ export default {
 
 
     window.Echo.channel("comment-log")
-        .listen("CommentRequestLogEvent", e => {
+        .listen(".request", e => {
           this.loadCommentRequestLogs();
         });
 
     window.Echo.channel("comment-log")
-        .listen("CommentLogEvent", e => {
-          this.loadCommentRequestLogs();
+        .listen(".comment", e => {
+          this.loadCommentRequestLogs()Z;
         });
 
     this.$Progress.finish();
