@@ -331,7 +331,7 @@ export default {
 
     window.Echo.channel("comment-log")
         .listen(".comment", e => {
-          this.loadCommentRequestLogs()Z;
+          this.loadCommentRequestLogs();
         });
 
     this.$Progress.finish();
