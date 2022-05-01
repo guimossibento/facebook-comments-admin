@@ -21,7 +21,7 @@
     "laravel/tinker": "^2.5",
     "laravel/ui": "^3.1",
     "predis/predis": "^1.1",
-    "pusher/pusher-php-server": "^4.0",
+    "pusher/pusher-php-server": "^7.0",
     "spatie/laravel-query-builder": "3.*",
     "spatie/laravel-queueable-action": "^2.13",
     "spatie/laravel-rate-limited-job-middleware": "^2.2"
