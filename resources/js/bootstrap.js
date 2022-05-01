@@ -1,3 +1,4 @@
+const Echo = require("laravel-echo");
 window._ = require('lodash');
 
 /**
@@ -33,3 +34,28 @@ window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
+
+window.Pusher = require('pusher-js');
+
+//LOCAL CONFIG
+window.Echo = new Echo.default({
+    broadcaster: 'pusher',
+    key: 'websocketkey',
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    // wssPort: 6001,
+    disableStats: false,
+    forceTLS: false,
+    enabledTransports: ['ws']
+});
+//
+// window.Echo = new Echo.default({
+//     broadcaster: 'pusher',
+//     key: 'websocketkey',
+//     wsHost: window.location.hostname,
+//     wsPort: 6001,
+//     wssPort: 6001,
+//     disableStats: true,
+//     forceTLS: true,
+//     enabledTransports: ['ws', 'wss']
+// });

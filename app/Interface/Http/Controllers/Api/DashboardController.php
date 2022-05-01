@@ -7,17 +7,21 @@ use App\Domain\Models\CommentRequestLog;
 use App\Domain\Models\Niche;
 use App\Domain\Tasks\ExecuteCommentsTask;
 use App\Infrastructure\Events\CommentRequestLogEvent;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController
 {
-  public function executeComments()
+  public function executeComments(): Response|JsonResponse|Application|ResponseFactory
   {
 
     $facebookAccounts = Niche::with(
       [
         'facebookAccounts' => function ($q) {
-          if (request()->get('gender') !== 'A') {
+          if (request()->get('gender') !== 'A') {//FILTER GENDER IF IT IS NOT RANDOM
             $q->where('facebook_accounts.gender', request()->get('gender'));
           }
           $q->where('facebook_accounts.secret_2fa', '!=', null);
@@ -33,7 +37,8 @@ class DashboardController
       return blank(CommentLog::query()
         ->where('facebook_account_id', $facebookAccount->id)
         ->where('post_url', request()->get('url'))
-        ->where('status', 'like', '%Sucesso%')
+        ->where('success', true)
+        ->where('login_test', false)
         ->first());
     });
 
@@ -50,7 +55,8 @@ class DashboardController
         return blank(CommentLog::query()
           ->where('comment', $comment->text)
           ->where('post_url', request()->get('url'))
-          ->where('status', 'like', '%Sucesso%')
+          ->where('success', true)
+          ->where('login_test', false)
           ->first());
       })
       ->toArray());

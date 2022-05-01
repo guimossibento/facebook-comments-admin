@@ -31,23 +31,18 @@ class CommentLogDomainService
 
     CommentLogEvent::dispatch($data);
 
-    $facebookAccoount = FacebookAccount::find($data->facebook_account_id);
+    $facebookAccount = FacebookAccount::find($data->facebook_account_id);
 
-    if (strtolower($data?->status) === 'erro' || strtolower($data?->status) === 'login erro') {
-
-      $facebookAccoount->update(["active" => false]);
-
+    if ($data?->login_test) {
+      $facebookAccount->update(["active" => $data?->success]);
       return $data;
     }
 
-    if (strtolower($data?->status) == 'login sucesso') {
-
-      $facebookAccoount->update(["active" => true]);
-      $facebookAccoount->refresh();
+    if (!$data?->success) {
       return $data;
     }
 
-    $facebookAccoount->update(["active" => true, "last_comment" => now()]);
+    $facebookAccount->update(["active" => true, "last_comment" => now()]);
 
     return $data;
   }

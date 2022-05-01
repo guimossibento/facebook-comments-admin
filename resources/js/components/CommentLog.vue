@@ -128,10 +128,6 @@
 </template>
 
 <script>
-import Echo from "laravel-echo"
-
-window.Pusher = require('pusher-js');
-
 export default {
   data() {
     return {
@@ -150,7 +146,6 @@ export default {
       axios
           .get("api/comment-logs?include=facebookAccount&filter[user]=1&page=" + page)
           .then(({data}) => (this.commnetLogs = data.data));
-      // console.log(this.commnetLogs);
       this.$Progress.finish();
     },
     loadCommentLog() {
@@ -217,17 +212,6 @@ export default {
   created() {
     this.$Progress.start();
     this.loadCommentLog();
-
-    window.Echo = new Echo({
-      broadcaster: 'pusher',
-      key: 'websocketkey',
-      wsHost: window.location.hostname,
-      wsPort: 6001,
-      wssPort: 6001,
-      disableStats: true,
-      forceTLS: true,
-      enabledTransports: ['ws', 'wss']
-    });
 
     window.Echo.channel("comment-log")
         .listen(".comment", e => {

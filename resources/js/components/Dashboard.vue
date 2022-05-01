@@ -165,8 +165,6 @@
 </template>
 
 <script>
-import Echo from "laravel-echo";
-
 export default {
   data() {
     return {
@@ -219,13 +217,13 @@ export default {
     executeComment() {
       this.$Progress.start();
 
-      // if(this.form.comment_amount > 25){
-      //   Toast.fire({
-      //     icon: "error",
-      //     title: "Quantidade de comentários não pode ser maior que 25.",
-      //   });
-      //   return;
-      // }
+      if (this.form.comment_amount > 25) {
+        Toast.fire({
+          icon: "error",
+          title: "Quantidade de comentários não pode ser maior que 25.",
+        });
+        return;
+      }
 
       axios
           .put("api/dashboard/execute-comments", this.form, {
@@ -296,11 +294,11 @@ export default {
       });
     },
     resetFormFields() {
-      this.form = { ...this.formCopy};
+      this.form = {...this.formCopy};
     },
   },
   mounted() {
-    this.formCopy = { ...this.form};
+    this.formCopy = {...this.form};
     this.$gtag.pageview({page_title: 'Dashboard'})
     console.log("Dashboard mounted.");
   },
@@ -311,18 +309,6 @@ export default {
     $(document).ready(function () {
       $(".select2").select2();
     });
-
-    window.Echo = new Echo({
-      broadcaster: 'pusher',
-      key: 'websocketkey',
-      wsHost: window.location.hostname,
-      wsPort: 6001,
-      wssPort: 6001,
-      disableStats: true,
-      forceTLS: true,
-      enabledTransports: ['ws', 'wss']
-    });
-
 
     window.Echo.channel("comment-log")
         .listen(".request", e => {
