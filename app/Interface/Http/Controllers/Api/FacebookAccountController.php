@@ -107,4 +107,26 @@ class FacebookAccountController extends AController
 
     return true;
   }
+
+  public function testLoginAllDeactivatedAccounts()
+  {
+    $facebook_accounts = FacebookAccount::query()
+      ->where('active', false)->get();
+
+    foreach ($facebook_accounts as $facebook_account) {
+      if (!empty($facebook_account?->id)) {
+        $data = array(
+          "user" => $facebook_account?->login,
+          "password" => $facebook_account?->password,
+          "post_url" => "Teste Login",
+          "comment" => "Teste Login",
+          "secret_2fa" => $facebook_account?->secret_2fa,
+          "test_login" => true,
+          "user_id" => Auth::user()->id
+        );
+        (new TestLoginTask)->onQueue('comment-task')->execute($data);
+      }
+    }
+    return true;
+  }
 }

@@ -6,7 +6,7 @@ use App\Domain\Models\CommentLog;
 use App\Domain\Models\CommentRequestLog;
 use App\Domain\Models\Niche;
 use App\Domain\Tasks\ExecuteCommentsTask;
-use App\Events\CommentRequestLogEvent;
+use App\Infrastructure\Events\CommentRequestLogEvent;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;

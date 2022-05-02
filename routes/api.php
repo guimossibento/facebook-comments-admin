@@ -40,7 +40,8 @@ Route::namespace('App\\Interface\\Http\\Controllers\\Api')
 	->middleware('auth:api')
 	->group(function () {
 		Route::post('facebook-accounts/test-login', 'FacebookAccountController@testLogin');
-		
+		Route::put('facebook-accounts/test-all-login', 'FacebookAccountController@testLoginAllDeactivatedAccounts');
+
 		Route::put('dashboard/execute-comments', 'DashboardController@executeComments');
 		Route::get('niches/list', [\App\Interface\Http\Controllers\Api\NicheController::class, 'list']);
 		

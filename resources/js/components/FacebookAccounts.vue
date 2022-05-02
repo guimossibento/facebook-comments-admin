@@ -5,20 +5,32 @@
         <div class="col-12">
           <div class="card" v-if="$gate.isAdmin()">
             <div class="card-header text-center">
-              <div class="row-cols-2">
-                <h3 class="card-title float-left">
-                  Listagem de Contas do Facebook
-                </h3>
-              </div>
-              <div class="row-cols-7">
-                <button
-                    type="button"
-                    class="btn btn-sm btn-primary float-right"
-                    @click="newModal"
-                >
-                  <i class="fa fa-plus-square"></i>
-                  Criar novo
-                </button>
+              <div class="row">
+                <div class="col-7">
+                  <h3 class="card-title float-left">
+                    Listagem de Contas do Facebook
+                  </h3>
+                </div>
+                <div class="col-3">
+                  <button
+                      type="button"
+                      class="btn btn-sm btn-danger  float-right"
+                      @click="testLoginAllAccounts"
+                  >
+                    <strong class="fa fa-user-check"></strong>
+                    Testar Todos Logins
+                  </button>
+                </div>
+                <div class="col-2">
+                  <button
+                      type="button"
+                      class="btn btn-sm btn-primary float-right"
+                      @click="newModal"
+                  >
+                    <strong class="fa fa-plus-square"></strong>
+                    Criar novo
+                  </button>
+                </div>
               </div>
             </div>
             <!-- /.card-header -->
@@ -433,6 +445,25 @@ export default {
       }
       axios
           .post("api/facebook-accounts/test-login", {"login": login})
+          .then((response) => {
+            if (response.status === 200) {
+              Toast.fire({
+                icon: "success",
+                title: "Aguarde, processando teste!",
+              });
+            }
+          })
+          .catch((error) => {
+            Toast.fire({
+              icon: "error",
+              title: error.response.data.message,
+            });
+            this.$Progress.fail();
+          });
+    },
+    testLoginAllAccounts() {
+      axios
+          .put("api/facebook-accounts/test-all-login")
           .then((response) => {
             if (response.status === 200) {
               Toast.fire({
