@@ -39,7 +39,7 @@ return [
         'cluster' => env('PUSHER_APP_CLUSTER'),
         'useTLS' => env('APP_ENV') !== 'local',
         'encrypted' => env('APP_ENV') !== 'local',
-        'host' => '127.0.0.1',
+        'host' => env('PUSHER_URL', '127.0.0.1'),
         'port' => env('LARAVEL_WEBSOCKETS_PORT', 6001),
         'scheme' => env('APP_ENV') === 'local' ? 'http' : 'https',
       ],
