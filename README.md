@@ -7,7 +7,7 @@
 - To improve the security, it'll better switch the public channel to Private channel.
 
 ##"Bugs" to fix
-- Now the Comment is attached at Comment Log by text, so needs to use nicheId as link and refactor all code where use it
+- Now the Comment is attached at Comment Log by text, so needs to use comment->id as link and refactor all code where use it
 
 ##Dependencies
 - .env needs to have a puppeteer API token
