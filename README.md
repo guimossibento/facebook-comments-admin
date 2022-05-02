@@ -5,6 +5,7 @@
 ##Things to improve
 - boostrap.js needs to working at localhost dynamically
 - To improve the security, it'll better switch the public channel to Private channel.
+- Test all deactivated accounts
 
 ##"Bugs" to fix
 - Now the Niche is attached at Comment Log by text, so needs to use nicheId as link and refactor all code where use it
